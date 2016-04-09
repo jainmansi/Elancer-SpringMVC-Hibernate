@@ -5,14 +5,14 @@ import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
+//import org.hibernate.annotations.Cache;
+//import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
 @Table(name = "userTable")
 @PrimaryKeyJoinColumn(name = "personID")
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "user")
-public class User {
+//@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "user")
+public class User extends Person{
 
 	@Column(name= "username")
 	private String username;
@@ -20,11 +20,21 @@ public class User {
 	@Column(name = "password")
 	private String password;
 	
+	private String confirmPassword;
+	
 	@Column(name = "email")
 	private String Email;
 	
 	@Column(name = "usertype")
 	private String userType;
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
 
 	public String getUsername() {
 		return username;

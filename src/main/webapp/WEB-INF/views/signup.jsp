@@ -83,7 +83,7 @@
 							<p class="text-center text-muted">Already a member? <a href="signin.jsp">Login</a> from here. </p>
 							<hr>
 
-							<form:form action = "addUser.htm" commandName="person" method="post" >
+							<form:form action = "adduser.htm" commandName="user" method="post" >
 								<div class="top-margin">
 									<label>First Name</label>
 									<form:input path="firstName" class="form-control"/>
@@ -95,11 +95,15 @@
 									<form:errors path="lastName"/>
 								</div>
 								<div class="top-margin">
+									<label>Username</label>
+									<form:input path="username" class="form-control"/>
+									<form:errors path="username"/>
+								</div>
+								<div class="top-margin">
 									<label>Email Address <span class="text-danger">*</span></label>
 									<form:input type="email" path="email" class="form-control"/>
 									<form:errors path="email"/>
 								</div>
-
 								<div class="row top-margin">
 									<div class="col-sm-6">
 										<label>Password <span class="text-danger">*</span></label>
@@ -108,19 +112,16 @@
 									</div>
 									<div class="col-sm-6">
 										<label>Confirm Password <span class="text-danger">*</span></label>
-										<input type="password" name="confirmPassword" class="form-control"/>
+										<form:input type="password" path="confirmPassword" name="confirmPassword" class="form-control"/>
 										<form:errors path="confirmPassword"/>
 									</div>
 								</div>
-
+									
 								<hr>
 
 								<div class="row">
 									<div class="col-lg-8">
-										<!--  <label class="checkbox">
-											<form:input type="checkbox"/> 
-											I've read the <a href="page_terms.html">Terms and Conditions</a>
-										</label> -->                       
+										                     
 									</div>
 									<div class="col-lg-4 text-right">
 										<button class="btn btn-action" type="submit">Register</button>

@@ -12,10 +12,8 @@
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 		<property name="hibernate.show_sql">true</property>
 		
-		<property name = "hibernate.cache.use_second_level_cache">true</property>
-			
-		<mapping class="com.me.pojo.User" />
-		<mapping class="com.me.pojo.Person" />
+		<mapping class="com.me.pojo.Person" />	
+	    <mapping class="com.me.pojo.User" />
 			
 	</session-factory>
 </hibernate-configuration>

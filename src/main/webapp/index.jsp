@@ -50,8 +50,8 @@
 			<div class="row">
 				<h1 class="lead">WELCOME TO ELANCRR</h1>
 				<p class="tagline">A place where people get their work done.</p>
-				<p><a href="signup.jsp?type=client" class="btn btn-default btn-lg" role="button">I want to Hire!</a> 
-					<a href="signup.jsp?type=freelancer" class="btn btn-action btn-lg" role="button">I want to Work!</a></p>
+				<p><a href="adduser.htm?type=client" class="btn btn-default btn-lg" role="button">I want to Hire!</a> 
+					<a href="adduser.htm?type=freelancer" class="btn btn-action btn-lg" role="button">I want to Work!</a></p>
 			</div>
 		</div>
 	</header>

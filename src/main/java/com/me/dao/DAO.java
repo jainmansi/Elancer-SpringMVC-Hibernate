@@ -28,15 +28,15 @@ private static final Logger log = Logger.getAnonymousLogger();
         return session;
     }
 
-    protected void begin() {
+    protected static void begin() {
         getSession().beginTransaction();
     }
 
-    protected void commit() {
+    protected static void commit() {
         getSession().getTransaction().commit();
     }
 
-    protected void rollback() {
+    protected static void rollback() {
         try {
             getSession().getTransaction().rollback();
         } catch (HibernateException e) {

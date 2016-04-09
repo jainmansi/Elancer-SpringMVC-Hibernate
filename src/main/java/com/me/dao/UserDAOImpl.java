@@ -8,44 +8,41 @@ import org.hibernate.Query;
 import com.me.exception.AdException;
 import com.me.pojo.User;
 
-public class UserDAOImpl extends GenericDAOImpl<User, BigDecimal> implements UserDAO {
+public class UserDAOImpl implements UserDAO {
 	
 	public UserDAOImpl(){
 		
 	}
 
 	public User findByUsername(String username) throws AdException{
-		DAO dao = new DAO();
-		dao.begin();
+		DAO.begin();
 		try {
-            Query q = getSession().createQuery("from User where name = :username");
+            Query q = DAO.getSession().createQuery("from User where name = :username");
             q.setString("username", username);
             User user = (User) q.uniqueResult();
-            dao.commit();
+            DAO.commit();
             return user;
         } catch (HibernateException e) {
-            dao.rollback();
+            DAO.rollback();
             throw new AdException("Could not get user " + username, e);
         } finally{
         	DAO.close();
         }
 	}
 	
-	public User save(String username) throws AdException{
-		DAO dao = new DAO();
-		dao.begin();
+	public void save(User user) throws Exception{
+		DAO.begin();
 		try {
-            Query q = getSession().createQuery("from User where name = :username");
-            q.setString("username", username);
-            User user = (User) q.uniqueResult();
-            dao.commit();
-            return user;
-        } catch (HibernateException e) {
-            dao.rollback();
-            throw new AdException("Could not get user " + username, e);
-        } finally{
-        	DAO.close();
-        }
+			DAO.begin();
+	            DAO.getSession().save(user);
+	            DAO.commit();
+	        } catch (HibernateException e) {
+	            DAO.rollback();
+	            throw new Exception("Could not get person " + e.getMessage());
+	        } finally{
+	        	DAO.close();
+	        }
+		
 	}
 
 }

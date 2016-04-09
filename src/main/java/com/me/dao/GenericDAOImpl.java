@@ -12,7 +12,7 @@ public abstract class GenericDAOImpl<T, ID extends Serializable> implements Gene
         return DAO.getSession();
     }
  
-    public void save(T entity) {
+    public void save(T entity) throws Exception {
         Session hibernateSession = this.getSession();
         hibernateSession.saveOrUpdate(entity);
     }
