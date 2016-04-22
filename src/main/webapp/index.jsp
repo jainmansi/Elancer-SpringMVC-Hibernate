@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>E-lancer</title>
-	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
+	<link rel="shortcut icon" href="resources/images/gt_favicon.png">
 	
 	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
 	<link rel="stylesheet" href="resources/css/bootstrap.min.css">
@@ -14,7 +14,7 @@
 	<!-- Custom styles for our template -->
 	<link rel="stylesheet" href="resources/css/bootstrap-theme.css" media="screen" >
 	<link rel="stylesheet" href="resources/css/main.css">
-  <script src="js/modernizr-2.7.1.js"></script>
+  <script src="resources/js/modernizr-2.7.1.js"></script>
 </head>
 <body class="home">
 	<!-- Fixed navbar -->
@@ -37,7 +37,7 @@
 						</ul>
 					</li>
 					<li><a href="contact.html">Contact</a></li>
-					<li><a class="btn" href="signin.jsp">SIGN IN / SIGN UP</a></li>
+					<li><a class="btn" href="signin.htm">SIGN IN / SIGN UP</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>

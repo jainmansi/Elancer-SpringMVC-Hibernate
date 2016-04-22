@@ -4,7 +4,7 @@
 <hibernate-configuration>
 	<session-factory>
 		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/Elancrr</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/elancrr</property>
 		<property name="hibernate.connection.username">root</property>
 		<property name="hibernate.connection.password">mansijain</property>
 
@@ -12,8 +12,13 @@
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 		<property name="hibernate.show_sql">true</property>
 		
-		<mapping class="com.me.pojo.Person" />	
-	    <mapping class="com.me.pojo.User" />
-			
+			<mapping class="com.me.pojo.Person" />
+			<mapping class="com.me.pojo.Admin" />
+			<mapping class="com.me.pojo.Client" />
+			<mapping class="com.me.pojo.JobApplication" />
+			<mapping class="com.me.pojo.Applicant" />
+			<mapping class="com.me.pojo.Job" />
+			<mapping class="com.me.pojo.JobCategory" />
+
 	</session-factory>
 </hibernate-configuration>

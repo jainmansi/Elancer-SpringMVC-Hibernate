@@ -50,7 +50,7 @@
 						</ul>
 					</li>
 					<li><a href="contact.html">Contact</a></li>
-					<li class="active"><a class="btn" href="signin.jsp">SIGN IN / SIGN UP</a></li>
+					<li class="active"><a class="btn" href="signin.htm">SIGN IN / SIGN UP</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -79,17 +79,19 @@
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<h3 class="thin text-center">Sign in to your account</h3>
-							<p class="text-center text-muted">Not a member? <a href="adduser.htm">Register</a> here today! </p>
+							<p class="text-center text-muted">Not a member? <a href="signup.htm">Register</a> here. </p>
 							<hr>
 							
-							<form>
+							<form:form action="home.htm" commandName="person" modelAttribute="person" method="post">
 								<div class="top-margin">
-									<label>Username/Email <span class="text-danger">*</span></label>
-									<input type="text" class="form-control">
+									<label>Username <span class="text-danger">*</span></label>
+									<form:input path="username" type="text" class="form-control"/>
+									<form:errors path="username"/>
 								</div>
 								<div class="top-margin">
 									<label>Password <span class="text-danger">*</span></label>
-									<input type="password" class="form-control">
+									<form:input path="password" type="text" class="form-control"/>
+									<form:errors path="password"/>
 								</div>
 
 								<hr>
@@ -102,7 +104,7 @@
 										<button class="btn btn-action" type="submit">Sign in</button>
 									</div>
 								</div>
-							</form>
+							</form:form>
 						</div>
 					</div>
 
