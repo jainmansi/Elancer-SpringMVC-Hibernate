@@ -5,6 +5,7 @@ import org.hibernate.Query;
 
 import com.me.exception.AdException;
 import com.me.pojo.Client;
+import com.me.pojo.Person;
 public class ClientDAOImpl implements ClientDAO{
 
 	public Client findByUsername(String username) throws AdException {

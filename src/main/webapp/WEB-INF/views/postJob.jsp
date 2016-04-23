@@ -22,13 +22,31 @@
 	<!-- Custom styles for our template -->
 	<link rel="stylesheet" href="resources/css/bootstrap-theme.css" media="screen" >
 	<link rel="stylesheet" href="resources/css/main.css">
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
 	<script src="resources/js/html5shiv.js"></script>
 	<script src="resources/js/respond.min.js"></script>
+	
 	<![endif]-->
 </head>
+
+<script>
+function added() {
+	$.ajax({
+		type : "GET",
+		url : "addCategory",
+		success : function(data) {
+			$('#submitted').html(data);
+		},
+
+	});
+return false;
+}
+		
+</script>
 
 <body>
 	<!-- Fixed navbar -->
@@ -41,7 +59,7 @@
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
-					<li><a href="myhome.htm">Home</a></li>
+					<li><a href="index.html">Home</a></li>
 					<li><a href="about.html">About</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">More Pages <b class="caret"></b></a>
@@ -51,7 +69,7 @@
 						</ul>
 					</li>
 					<li><a href="contact.html">Contact</a></li>
-					<li class="active"><a class="btn" href="logout.htm">LOGOUT</a></li>
+					<li class="active"><a class="btn" href="signin.jsp">SIGN IN / SIGN UP</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -73,30 +91,54 @@
 			<!-- Article main content -->
 			<article class="col-xs-12 maincontent">
 				<header class="page-header">
-					<h1 class="page-title">Registration</h1>
+					<h1 class="page-title">Post a new job!</h1>
 				</header>
 				
-				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-					<div class="panel panel-default">
-						<table class="table table-bordered table-striped">
-						<thead>
-							<tr>
-								<th>Category Name</th>
-								<th>Category Description</th>
-							</tr>
-						</thead>
-						<tbody>
-						<c:forEach var="category" items="${list}" varStatus="status">
-							<tr>
-           						<td> <c:out value=" ${category.categoryName}"/><br></td>
-           						<td> <c:out value=" ${category.description}"/><br></td>
-           					</tr>
-                        </c:forEach> 
-                        </tbody>
-						</table>
-					</div>
+				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2" style="float:left">
+					
 
-				</div>
+							<form:form action="addJob.htm" commandName="job" modelAttribute="job" method="post" >
+								<div class="top-margin">
+									<label>Title:<span class="text-danger">*</span></label>
+									<form:input path="jobTitle" class="form-control"/>
+									<form:errors path="jobTitle"/>
+								</div>
+								<div class="top-margin">
+									<label>Description:<span class="text-danger">*</span></label>
+									<form:textarea path="jobDescription" class="form-control"/>
+									<form:errors path="jobDescription"/>
+								</div>								
+								<div class="top-margin">
+									<label>Salary:<span class="text-danger">*</span></label>
+									<form:input path="pay" class="form-control"/>
+									<form:errors path="pay"/>
+								</div>
+								<div class="top-margin">
+									<label>Category:<span class="text-danger">*</span></label>
+									<select name="catId" class="form-control">
+										<option value="0" label="Select" />
+										<c:forEach var="category" items="${list}" varStatus="status">
+											<option value="${category.categoryId}">${category.categoryName}</option>
+										</c:forEach>
+									</select>
+									
+								</div>
+
+								<hr>
+
+								<div class="row">
+									<div class="col-lg-8">
+										                   
+									</div>
+									<div class="col-lg-4 text-right">
+										<button class="btn btn-action" type="submit">Register</button>
+									</div>
+								</div>
+							</form:form>
+						</div>
+				
+				
+				<span id="submitted"></span>
 				
 			</article>
 			<!-- /Article -->

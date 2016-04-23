@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -47,7 +48,6 @@ public class HomeController {
 	@Qualifier("personDao")
 	PersonDAOImpl personDao;
 	
-	
 	@Autowired
 	@Qualifier("applicantDao")
 	ApplicantDAOImpl applicantDao;
@@ -57,19 +57,18 @@ public class HomeController {
 	ClientDAOImpl clientDao;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
+	public String home(Locale locale, Model model) {		
 		return "index";
 	}
-		
+	
+	@RequestMapping(value = "/logout.htm", method = RequestMethod.GET)
+	public String logoutFunction(HttpSession session, HttpServletResponse response) {
+		 session.invalidate();
+		 response.setHeader("Cache-Control", "no-cache");
+		 response.setDateHeader("Expires", 0);
+         return "redirect:/";
+	}
+	
 	@RequestMapping(value="/clientsignup.htm", method=RequestMethod.POST)
 	protected String doSubmitAction(@ModelAttribute("person")Person person, BindingResult result, HttpServletRequest request, ModelMap model) throws Exception{
 		//validator.validate(user, result);
@@ -178,7 +177,7 @@ public class HomeController {
 			return "adminpage";
 		}
 		
-		return "";
+		return "redirect:/";
 	}
 
 	@RequestMapping(value="/adduser.htm", method = RequestMethod.GET)

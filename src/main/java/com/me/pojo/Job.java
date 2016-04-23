@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "job")
@@ -24,9 +25,18 @@ public class Job {
 	@Column(name = "jobId", unique = true, nullable = false)
 	private int jobId;
 	
+	@Column(name ="jobTitle")
+	private String jobTitle;
+	
+	@Column(name = "description")
+	private String jobDescription;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "categoryId", nullable = false)
 	private JobCategory jobCategory;
+	
+	@Column(name = "pay")
+	private int pay;
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	@JoinColumn(name = "personID")
@@ -50,6 +60,54 @@ public class Job {
 		this.assignedTo = assignedTo;
 	}
 	
+	public String getJobTitle() {
+		return jobTitle;
+	}
+
+	public void setJobTitle(String jobTitle) {
+		this.jobTitle = jobTitle;
+	}
+
+	public String getJobDescription() {
+		return jobDescription;
+	}
+
+	public void setJobDescription(String jobDescription) {
+		this.jobDescription = jobDescription;
+	}
+
+	public int getPay() {
+		return pay;
+	}
+
+	public void setPay(int pay) {
+		this.pay = pay;
+	}
+
+	public Client getPostedBy() {
+		return postedBy;
+	}
+
+	public void setPostedBy(Client postedBy) {
+		this.postedBy = postedBy;
+	}
+
+	public Collection<JobApplication> getApplications() {
+		return applications;
+	}
+
+	public void setApplications(Collection<JobApplication> applications) {
+		this.applications = applications;
+	}
+
+	public Applicant getAssignedTo() {
+		return assignedTo;
+	}
+
+	public void setAssignedTo(Applicant assignedTo) {
+		this.assignedTo = assignedTo;
+	}
+
 	public int getJobId() {
 		return jobId;
 	}
@@ -65,29 +123,5 @@ public class Job {
 	public void setJobCategory(JobCategory jobCategory) {
 		this.jobCategory = jobCategory;
 	}
-
-//	public Client getPostedBy() {
-//		return postedBy;
-//	}
-//
-//	public void setPostedBy(Client postedBy) {
-//		this.postedBy = postedBy;
-//	}
-
-//	public Collection<Applicant> getApplicants() {
-//		return applicants;
-//	}
-//
-//	public void setApplicants(Collection<Applicant> applicants) {
-//		this.applicants = applicants;
-//	}
-//
-//	public Applicant getAssignedTo() {
-//		return assignedTo;
-//	}
-//
-//	public void setAssignedTo(Applicant assignedTo) {
-//		this.assignedTo = assignedTo;
-//	}
 	
 }

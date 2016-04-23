@@ -31,7 +31,7 @@ public class JobCategory {
 	//@JoinColumn(name = "jobId")
     private Collection<Job> jobs = new ArrayList<Job>();
 	
-	JobCategory(){		
+	public JobCategory(){		
 	}
 	
 	public JobCategory(String categoryName, String description){

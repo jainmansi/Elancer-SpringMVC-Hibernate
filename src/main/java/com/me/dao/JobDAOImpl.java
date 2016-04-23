@@ -9,7 +9,6 @@ public class JobDAOImpl implements JobDAO{
 	public void save(Job job) throws Exception {
 		DAO.begin();
 		try {
-			DAO.begin();
 	            DAO.getSession().save(job);
 	            DAO.commit();
 	        } catch (HibernateException e) {
