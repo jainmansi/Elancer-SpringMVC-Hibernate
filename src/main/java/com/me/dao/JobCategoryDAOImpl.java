@@ -1,5 +1,6 @@
 package com.me.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -22,11 +23,11 @@ public class JobCategoryDAOImpl implements JobCategoryDAO{
 	        }		
 	}
 	
-	public List<JobCategory> findAll() throws Exception {
+	public ArrayList<JobCategory> findAll() throws Exception {
 		DAO.begin();
         try {
             Query q = DAO.getSession().createQuery("from JobCategory");
-            List<JobCategory> list = q.list();
+            ArrayList<JobCategory> list = (ArrayList<JobCategory>) q.list();
             DAO.commit();
             return list;
         } catch (HibernateException e) {

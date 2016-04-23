@@ -67,7 +67,7 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "home";
+		return "index";
 	}
 		
 	@RequestMapping(value="/clientsignup.htm", method=RequestMethod.POST)
@@ -138,13 +138,15 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/home.htm", method=RequestMethod.POST)
-	protected String landingPage(@ModelAttribute("person") Person person, BindingResult result, HttpServletRequest request, ModelMap model) throws AdException{		Person testPerson = new Person();
+	protected String landingPage(@ModelAttribute("person") Person person, BindingResult result, HttpServletRequest request, ModelMap model) throws AdException{		
+		Person testPerson = new Person();
 		testPerson = personDao.findByUsername(person.getUsername());
 		
 		if(testPerson.getUsername().equals(person.getUsername()) && testPerson.getPassword().equals(person.getPassword())){
 			
 			HttpSession session = request.getSession();
 			session.setAttribute("username", person.getUsername());
+			session.setAttribute("usertype", person.getUsertype());
 			
 			if(testPerson.getUsertype().equals("client")){
 				return "landingpage";
@@ -164,9 +166,19 @@ public class HomeController {
 		return "signin";
 	}
 	
-	@RequestMapping(value="/adminpage.htm", method = RequestMethod.GET)
-	protected String adminHome(@ModelAttribute("person") Person person, BindingResult result, HttpServletRequest request, ModelMap model){
-		return "adminpage";
+	@RequestMapping(value="/myhome.htm", method = RequestMethod.GET)
+	protected String adminHome(@ModelAttribute("person") Person person, BindingResult result, HttpServletRequest request, ModelMap model) throws AdException{
+		
+		HttpSession session = request.getSession();
+		String username = (String) session.getAttribute("username");
+		System.out.println(username);
+		
+		if(username!=null){
+			if(personDao.findByUsername(username).getUsertype().equals("admin"))
+			return "adminpage";
+		}
+		
+		return "";
 	}
 
 	@RequestMapping(value="/adduser.htm", method = RequestMethod.GET)
