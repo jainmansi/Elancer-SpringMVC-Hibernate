@@ -33,17 +33,6 @@
 
 <body>
 
-<script>
-function searchjob() {
-	$.ajax({
-		type: 'POST',
-	    url: '/search',
-	    success: function(data){
-	    	alert("inside ajax call");
-	    $("#resultDisplay").html(data);
-	}
-})
-</script>
 
 	<!-- Fixed navbar -->
 	<div class="navbar navbar-inverse navbar-fixed-top headroom" >
@@ -93,13 +82,23 @@ function searchjob() {
 				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 					
 							
-							<form action="search.htm" method="GET">
+							<form:form action="search.htm" method="GET">
+							<div class="top-margin">
+									<label>Category:<span class="text-danger">*</span></label>
+									<select name="catId" class="form-control">
+										<option value="0" label="Select" />
+										<c:forEach var="category" items="${list}" varStatus="status">
+											<option value="${category.categoryId}">${category.categoryName}</option>
+										</c:forEach>
+									</select>
+									
+								</div>
 							<div class="top-margin">
 									<label>Keyword: <span class="text-danger">*</span></label>
 									<input type="text" name="keyword" class="form-control"/><br/>
 									<button class="btn btn-action" type="submit">SEARCH</button>
 								</div>
-							</form>
+							</form:form>
 							
 							<span id="resultDisplay"></span>
 						

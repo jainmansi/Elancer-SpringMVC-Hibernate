@@ -37,11 +37,12 @@ public class JobDAOImpl implements JobDAO{
         }
     }
 	
-	public ArrayList<Job> findByKeyword(String keyword) throws AdException {
+	public ArrayList<Job> findByKeyword(String keyword, int catid) throws AdException {
         DAO.begin();
 		try {
-            Query q = DAO.getSession().createQuery("from Job where jobDescription LIKE :keyword");
+            Query q = DAO.getSession().createQuery("from Job where jobDescription LIKE :keyword AND categoryId = :catid");
             q.setString("keyword", "%"+keyword+"%");
+            q.setInteger("catid", catid);
             ArrayList<Job> list = (ArrayList<Job>) q.list();
             DAO.commit();
             return list;

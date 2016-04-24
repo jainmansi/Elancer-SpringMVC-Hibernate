@@ -22,8 +22,6 @@
 	<!-- Custom styles for our template -->
 	<link rel="stylesheet" href="resources/css/bootstrap-theme.css" media="screen" >
 	<link rel="stylesheet" href="resources/css/main.css">
-	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
@@ -32,19 +30,6 @@
 	
 	<![endif]-->
 </head>
-
-<script>
-function added() {
-	$.ajax({
-		type : "GET",
-		url : "addCategory",
-		success : function(data) {
-			$('#submitted').html(data);
-		},
-
-	});
-return false;
-}
 		
 </script>
 
@@ -97,31 +82,19 @@ return false;
 				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2" style="float:left">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<h3 class="thin text-center">Add Category</h3>
-							<p class="text-center text-muted">Time to grow! Add new categories to the database.</p>
+							<h3 class="thin text-center">Job Application</h3>
+							<p class="text-center text-muted">It's your time to shine.</p>
 							<hr>
 
-							<form:form id="addCategoryForm" action="addCategory.htm" commandName="jobCategory" modelAttribute="jobCategory" method="post" >
-								<div class="top-margin">
-									<label>Category Name:<span class="text-danger">*</span></label>
-									<form:input path="categoryName" class="form-control"/>
-									<form:errors path="categoryName"/>
-								</div>
-								<div class="top-margin">
-									<label>Category Description:<span class="text-danger">*</span></label>
-									<form:input path="description" class="form-control"/>
-									<form:errors path="description"/>
-								</div>
-
-								<hr>
-
+							<form:form action="application.htm" commandName="jobApplication" modelAttribute="jobApplication" method="post" >
+								
 								<div class="row">
-									<div class="col-lg-8">
-										                   
-									</div>
-									<div class="col-lg-4 text-right">
-										<button class="btn btn-action" type="submit">Register</button>
-									</div>
+								<div class="col-sm-6">
+									<label class="checkbox"><input type="checkbox"> Agree to terms and conditions</label>
+								</div>
+								<div class="col-sm-6 text-right">
+									<input class="btn btn-action" type="submit" value="Apply Now!">
+								</div>
 								</div>
 							</form:form>
 						</div>

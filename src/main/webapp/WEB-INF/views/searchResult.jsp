@@ -94,7 +94,7 @@
            						<td> <c:out value=" ${job.jobTitle}"/><br></td>
            						<td> <c:out value=" ${job.jobDescription}"/><br></td>
            						<td> <c:out value=" ${job.pay}"/><br></td>
-           						<td> <a href="applyNow.htm?id=${job.jobId}"><h4><span class="label label-success">Apply</span></h4></a></td>         						
+           						<td> <a style="text-decoration:none" href="applyNow.htm?id=${job.jobId}"><h4><span class="label label-success">Apply Now!</span></h4></a></td>         						
            					</tr>
                         </c:forEach> 
                         </tbody>

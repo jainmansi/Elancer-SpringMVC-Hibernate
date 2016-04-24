@@ -119,20 +119,41 @@ public class JobController {
 	}
 	
 	@RequestMapping(value="/searchJobs.htm", method = RequestMethod.GET)
-	protected String signinForm(@ModelAttribute("job") Job job, BindingResult result, HttpServletRequest request, ModelMap model){
+	protected String signinForm(@ModelAttribute("job") Job job, BindingResult result, HttpServletRequest request, ModelMap model) throws Exception{
+		ArrayList<JobCategory> categoryList = new ArrayList<JobCategory>();
+		categoryList = categoryDao.findAll();
+		
+		ArrayList<String> categoryName = new ArrayList<String>();
+		
+		for(JobCategory jc : categoryList){
+			categoryName.add(jc.getCategoryName());
+		}
+		
+		//System.out.println(categoryList.get(0).getCategoryName());
+		
+		model.addAttribute("list", categoryList);
+		model.addAttribute("namelist", categoryName);
 		return "searchJobs";
 	}
 	
 	@RequestMapping(value="/applyNow.htm", method = RequestMethod.GET)
 	protected String jobApplication(@ModelAttribute("jobApplication") JobApplication jobApplication, BindingResult result, HttpServletRequest request, ModelMap model){
+		int i = Integer.parseInt(request.getParameter("id"));
+		System.out.println(i);
+		return "applicationForm";
+	}
+	
+	@RequestMapping(value="/application.htm", method = RequestMethod.GET)
+	protected String applicationProcessing(@ModelAttribute("jobApplication") JobApplication jobApplication, BindingResult result, HttpServletRequest request, ModelMap model){
 		return "applicationForm";
 	}
 	
 	@RequestMapping("/search.htm")
 	public String searchPost(@ModelAttribute("job") Job job, BindingResult result, HttpServletRequest request, Model model) throws AdException {
 		String keyword = request.getParameter("keyword");
+		int categoryId = Integer.parseInt(request.getParameter("catId"));
 		
-		ArrayList<Job> searchList = (ArrayList<Job>) jobDao.findByKeyword(keyword);
+		ArrayList<Job> searchList = (ArrayList<Job>) jobDao.findByKeyword(keyword, categoryId);
 		model.addAttribute("searchList", searchList);
 		return "searchResult";
 	}
