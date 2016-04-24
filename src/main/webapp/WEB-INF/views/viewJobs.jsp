@@ -64,8 +64,8 @@
 	<div class="container">
 
 		<ol class="breadcrumb">
-			<li><a href="myhome.htm">Home</a></li>
-			<li class="active">Registration</li>
+			<li><a href="home.htm">Home</a></li>
+			<li class="active">My Dashboard</li>
 		</ol>
 
 		<div class="row">
@@ -73,18 +73,18 @@
 			<!-- Article main content -->
 			<article class="col-xs-12 maincontent">
 				<header class="page-header">
-					<h1 class="page-title">Registration</h1>
+					<h1 class="page-title">My Dashboard</h1>
 				</header>
 				
-				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-					<div class="panel panel-default">
-						<table class="table table-bordered table-striped">
+				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2" style="width:70%">
+						<table class="table table-striped">
 						<thead>
 							<tr>
 								<th>Job Title</th>
 								<th>Job Description</th>
 								<th>Job Category</th>
 								<th>Salary</th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -92,13 +92,13 @@
 							<tr>
            						<td> <c:out value=" ${job.jobTitle}"/><br></td>
            						<td> <c:out value=" ${job.jobDescription}"/><br></td>
-           						<td> <c:out value=" ${job.jobCategory}"/><br></td>
-           						<td> <c:out value=" ${job.pay}"/><br></td>         						
+           						<td> <c:out value=" ${job.jobCategory.categoryName}"/><br></td>
+           						<td> <c:out value=" ${job.pay}"/><br></td>  
+           						<td> <a style="text-decoration:none" href="jobStatus.htm?id=${job.jobId}"><h4><span class="label label-warning">View Status</span></h4></a></td>       						
            					</tr>
                         </c:forEach> 
                         </tbody>
 						</table>
-					</div>
 
 				</div>
 				

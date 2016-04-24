@@ -13,7 +13,7 @@
 	
 	<title>Elancrr - where work is get done!</title>
 
-	<link rel="shortcut icon" href="resources/images/gt_favicon.png">
+	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
 	
 	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
 	<link rel="stylesheet" href="resources/css/bootstrap.min.css">
@@ -27,7 +27,6 @@
 	<!--[if lt IE 9]>
 	<script src="resources/js/html5shiv.js"></script>
 	<script src="resources/js/respond.min.js"></script>
-	
 	<![endif]-->
 </head>
 
@@ -52,7 +51,7 @@
 						</ul>
 					</li>
 					<li><a href="contact.html">Contact</a></li>
-					<li class="active"><a class="btn" href="logout.htm">LOGOUT</a></li>
+					<li class="active"><a class="btn" href="signin.jsp">SIGN IN / SIGN UP</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -65,7 +64,7 @@
 	<div class="container">
 
 		<ol class="breadcrumb">
-			<li><a href="myhome.htm">Home</a></li>
+			<li><a href="index.html">Home</a></li>
 			<li class="active">Registration</li>
 		</ol>
 
@@ -74,37 +73,17 @@
 			<!-- Article main content -->
 			<article class="col-xs-12 maincontent">
 				<header class="page-header">
-					<h1 class="page-title">Add New Category</h1>
+					<h1 class="page-title">${title}</h1>
 				</header>
-				
-				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2" style="float:left">
-					<div class="panel panel-default">
-						<div class="panel-body">
-							<h3 class="thin text-center">Job Application</h3>
-							<p class="text-center text-muted">It's your time to shine.</p>
-							<hr>
-
-							<form:form action="application.htm" commandName="jobApplication" modelAttribute="jobApplication" method="post" >
-								<div class="row">
-								<div class="col-sm-12">
-									<form:textarea placeholder="Tell us something about you..." path="aboutYou" class="form-control" rows="7"></form:textarea><br/><br/>
-								</div>
-								</div>
-								<div class="row">
-								<div class="col-sm-6">
-									<label class="checkbox"><input type="checkbox"> Agree to terms and conditions</label>
-								</div>
-								<div class="col-sm-6 text-right">
-									<input class="btn btn-action" type="submit" value="Apply Now!">
-								</div>
-								</div>
-							</form:form>
-						</div>
-					</div>
-
-				</div>
-				
-				<span id="submitted"></span>
+				<c:forEach var="application" items="${applications}" varStatus="status">
+				<blockquote>
+					<p>Application Number: ${application.applicationId}</p>
+					<p>About Applicant: ${application.aboutYou}</p>
+					<p>Application Status: ${application.status}</p>
+					<p>Applicant Name: ${application.appliedBy.firstName} &nbsp; ${application.appliedBy.lastName}</p>
+					<a style="text-decoration:none" href="details.htm?id=${application.applicationId}"><span class="label label-default">More Details</span></a>
+				</blockquote>
+				</c:forEach>
 				
 			</article>
 			<!-- /Article -->

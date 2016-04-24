@@ -90,7 +90,7 @@
 								</div>
 								<div class="top-margin">
 									<label>Password <span class="text-danger">*</span></label>
-									<form:input path="password" type="text" class="form-control"/>
+									<form:input path="password" type="password" class="form-control"/>
 									<form:errors path="password"/>
 								</div>
 

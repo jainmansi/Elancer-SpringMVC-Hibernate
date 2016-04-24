@@ -101,7 +101,6 @@ public class JobController {
 			
 			job.setJobCategory(selectedCategory);
 			
-			System.out.print("test");
 			jobDao.save(job);		
 			System.out.println("Saved new job");
 			return "jobAdded";
@@ -147,8 +146,20 @@ public class JobController {
 		int i = Integer.parseInt(request.getParameter("id"));
 		HttpSession session = request.getSession();
 		session.setAttribute("jobid", i);
-		System.out.println(i);
+		//System.out.println(i);
 		return "applicationForm";
+	}
+	
+	@RequestMapping(value="/jobStatus.htm", method = RequestMethod.GET)
+	protected String jobStatus(@ModelAttribute("jobApplication") JobApplication jobApplication, BindingResult result, HttpServletRequest request, Model model) throws AdException{
+		int i = Integer.parseInt(request.getParameter("id"));
+		Job job = jobDao.findById(i);
+		String title = job.getJobTitle();
+		ArrayList<JobApplication> applicationList = applicationDao.findById(i);
+		model.addAttribute("applications", applicationList);
+		model.addAttribute("title", title);
+		//System.out.println(i);
+		return "jobStatus";
 	}
 	
 	@RequestMapping(value="/application.htm", method = RequestMethod.POST)
@@ -161,8 +172,9 @@ public class JobController {
 		jobApplication.setAppliedBy(applicant);
 		
 		int id = (Integer) session.getAttribute("jobid");
-		System.out.println("jobid"+id);
+		//System.out.println("jobid"+id);
 		Job job = jobDao.findById(id);
+		session.removeAttribute("jobid");
 		jobApplication.setJob(job);
 		
 		jobApplication.setStatus("Applied");
