@@ -37,6 +37,20 @@ public class JobDAOImpl implements JobDAO{
         }
     }
 	
+	public Job findById(int i) throws AdException {
+        DAO.begin();
+		try {
+            Query q = DAO.getSession().createQuery("from Job where jobId = :id");
+            q.setLong("id", i);
+            Job job = (Job) q.uniqueResult();
+            DAO.commit();
+            return job;
+        } catch (HibernateException e) {
+            DAO.rollback();
+            throw new AdException("Could not get Job for" + i , e);
+        }
+    }
+	
 	public ArrayList<Job> findByKeyword(String keyword, int catid) throws AdException {
         DAO.begin();
 		try {

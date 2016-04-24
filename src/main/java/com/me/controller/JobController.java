@@ -20,11 +20,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.me.dao.ApplicantDAOImpl;
+import com.me.dao.ApplicationDAOImpl;
 import com.me.dao.ClientDAOImpl;
 import com.me.dao.JobCategoryDAOImpl;
 import com.me.dao.JobDAOImpl;
 import com.me.dao.PersonDAOImpl;
 import com.me.exception.AdException;
+import com.me.pojo.Applicant;
 import com.me.pojo.Client;
 import com.me.pojo.Job;
 import com.me.pojo.JobApplication;
@@ -50,6 +52,10 @@ public class JobController {
 	@Autowired
 	@Qualifier("jobDao")
 	JobDAOImpl jobDao;
+	
+	@Autowired
+	@Qualifier("applicationDao")
+	ApplicationDAOImpl applicationDao;
 	
 	@Autowired
 	@Qualifier("categoryDao")
@@ -139,13 +145,30 @@ public class JobController {
 	@RequestMapping(value="/applyNow.htm", method = RequestMethod.GET)
 	protected String jobApplication(@ModelAttribute("jobApplication") JobApplication jobApplication, BindingResult result, HttpServletRequest request, ModelMap model){
 		int i = Integer.parseInt(request.getParameter("id"));
+		HttpSession session = request.getSession();
+		session.setAttribute("jobid", i);
 		System.out.println(i);
 		return "applicationForm";
 	}
 	
-	@RequestMapping(value="/application.htm", method = RequestMethod.GET)
-	protected String applicationProcessing(@ModelAttribute("jobApplication") JobApplication jobApplication, BindingResult result, HttpServletRequest request, ModelMap model){
-		return "applicationForm";
+	@RequestMapping(value="/application.htm", method = RequestMethod.POST)
+	protected String applicationProcessing(@ModelAttribute("jobApplication") JobApplication jobApplication, BindingResult result, HttpServletRequest request, ModelMap model) throws Exception{
+		HttpSession session = request.getSession();
+		String username = (String) session.getAttribute("username");
+		
+		Applicant applicant = applicantDao.findByUsername(username);
+		System.out.println("Applicant"+applicant.getFirstName());
+		jobApplication.setAppliedBy(applicant);
+		
+		int id = (Integer) session.getAttribute("jobid");
+		System.out.println("jobid"+id);
+		Job job = jobDao.findById(id);
+		jobApplication.setJob(job);
+		
+		jobApplication.setStatus("Applied");
+		applicationDao.save(jobApplication);
+		
+		return "success";
 	}
 	
 	@RequestMapping("/search.htm")

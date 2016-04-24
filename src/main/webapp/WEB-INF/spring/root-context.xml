@@ -10,4 +10,5 @@
 	<bean id="applicantDao" class="com.me.dao.ApplicantDAOImpl"></bean>
 	<bean id="jobDao" class="com.me.dao.JobDAOImpl"></bean>
 	<bean id="categoryDao" class="com.me.dao.JobCategoryDAOImpl"></bean>
+	<bean id="applicationDao" class="com.me.dao.ApplicationDAOImpl"></bean>
 </beans>

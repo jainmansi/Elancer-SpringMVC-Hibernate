@@ -23,9 +23,12 @@ public class JobApplication {
 	@Column(name = "applicationId", unique = true, nullable = false)
 	private long applicationId;
 	
-	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-	@JoinColumn(name = "personID", insertable = false, updatable = false)
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "personID")
 	private Applicant appliedBy;
+	
+	@Column(name = "aboutYou")
+	private String aboutYou;
 	
 	@Column(name = "status")
 	private String status;
@@ -33,6 +36,14 @@ public class JobApplication {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "jobId", nullable = false)
 	private Job job;
+
+	public String getAboutYou() {
+		return aboutYou;
+	}
+
+	public void setAboutYou(String aboutYou) {
+		this.aboutYou = aboutYou;
+	}
 
 	public Job getJob() {
 		return job;
