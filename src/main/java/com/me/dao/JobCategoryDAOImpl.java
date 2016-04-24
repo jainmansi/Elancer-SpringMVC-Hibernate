@@ -1,14 +1,11 @@
 package com.me.dao;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 
 import com.me.exception.AdException;
 import com.me.pojo.JobCategory;
-import com.me.pojo.Person;
 
 public class JobCategoryDAOImpl implements JobCategoryDAO{
 

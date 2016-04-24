@@ -39,7 +39,7 @@ public class Job {
 	private int pay;
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-	@JoinColumn(name = "personID")
+	@JoinColumn(name = "clientId", referencedColumnName="personID")
 	private Client postedBy;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="job", cascade = CascadeType.REMOVE)
@@ -50,6 +50,7 @@ public class Job {
 	private Applicant assignedTo;
 	
 	Job(){
+		this.applications = new ArrayList<JobApplication>();
 	}
 	
 	public Job(int jobId, Client postedBy, Applicant assignedTo, JobCategory jobCategory){

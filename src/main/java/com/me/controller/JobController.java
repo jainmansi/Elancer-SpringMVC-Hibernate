@@ -1,6 +1,7 @@
 package com.me.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,18 +15,24 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.me.dao.ApplicantDAOImpl;
 import com.me.dao.ClientDAOImpl;
 import com.me.dao.JobCategoryDAOImpl;
 import com.me.dao.JobDAOImpl;
 import com.me.dao.PersonDAOImpl;
+import com.me.exception.AdException;
 import com.me.pojo.Client;
 import com.me.pojo.Job;
+import com.me.pojo.JobApplication;
 import com.me.pojo.JobCategory;
 import com.me.pojo.Person;
 
 @Controller
+@SessionAttributes("username")
 public class JobController {
 	
 	@Autowired
@@ -74,25 +81,62 @@ public class JobController {
 			HttpSession session = request.getSession();
 			String username = (String) session.getAttribute("username");
 			
-			Client client = (Client) clientDao.findByUsername(username);	
+			System.out.println(username);
+			
+			Person person = (Person) personDao.findByUsername(username);
+			//System.out.println(person.getFirstName());
+			long id = person.getPersonID();
+			Client client = (Client) clientDao.findById(id);
 			job.setPostedBy(client);
 			
-			int id = Integer.parseInt(request.getParameter("catId"));
+			int catid = Integer.parseInt(request.getParameter("catId"));
 			JobCategory selectedCategory = new JobCategory();
-			selectedCategory = categoryDao.findById(id);
+			selectedCategory = categoryDao.findById(catid);
 			
 			job.setJobCategory(selectedCategory);
 			
 			System.out.print("test");
 			jobDao.save(job);		
 			System.out.println("Saved new job");
-			return "success";
+			return "jobAdded";
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "error";
 	}
+	
+	@RequestMapping(value="/viewMyJobs.htm", method = RequestMethod.GET)
+	protected String viewCategory(@ModelAttribute("jobCategory") JobCategory jobCategory, BindingResult result, HttpServletRequest request, Model model) throws Exception{
+		
+		HttpSession session = request.getSession();
+		String username = (String) session.getAttribute("username");
+		
+		ArrayList<Job> jobList = new ArrayList<Job>();
+		jobList = jobDao.findByUserId(personDao.findByUsername(username).getPersonID());
+		model.addAttribute("myJobList", jobList);
+		return "viewJobs";
 	}
+	
+	@RequestMapping(value="/searchJobs.htm", method = RequestMethod.GET)
+	protected String signinForm(@ModelAttribute("job") Job job, BindingResult result, HttpServletRequest request, ModelMap model){
+		return "searchJobs";
+	}
+	
+	@RequestMapping(value="/applyNow.htm", method = RequestMethod.GET)
+	protected String jobApplication(@ModelAttribute("jobApplication") JobApplication jobApplication, BindingResult result, HttpServletRequest request, ModelMap model){
+		return "applicationForm";
+	}
+	
+	@RequestMapping("/search.htm")
+	public String searchPost(@ModelAttribute("job") Job job, BindingResult result, HttpServletRequest request, Model model) throws AdException {
+		String keyword = request.getParameter("keyword");
+		
+		ArrayList<Job> searchList = (ArrayList<Job>) jobDao.findByKeyword(keyword);
+		model.addAttribute("searchList", searchList);
+		return "searchResult";
+	}
+	
+}
 	
 	

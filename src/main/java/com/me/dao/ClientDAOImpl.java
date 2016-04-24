@@ -8,17 +8,19 @@ import com.me.pojo.Client;
 import com.me.pojo.Person;
 public class ClientDAOImpl implements ClientDAO{
 
-	public Client findByUsername(String username) throws AdException {
+	public Client findById(long id) throws AdException {
 		DAO.begin();
+		System.out.println(id + "Client DAO");
 		try {
-            Query q = DAO.getSession().createQuery("from Client where username = :username");
-            q.setString("username", username);
+            Query q = DAO.getSession().createQuery("from Client where personID = :id");
+            q.setLong("id", id);
             Client client = (Client) q.uniqueResult();
             DAO.commit();
+            System.out.println(client.getFirstName());
             return client;
         } catch (HibernateException e) {
             DAO.rollback();
-            throw new AdException("Could not get user " + username, e);
+            throw new AdException("Could not get user " + id, e);
         } finally{
         	DAO.close();
         }

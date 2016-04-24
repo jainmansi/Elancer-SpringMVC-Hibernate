@@ -1,7 +1,11 @@
 package com.me.dao;
 
-import org.hibernate.HibernateException;
+import java.util.ArrayList;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+
+import com.me.exception.AdException;
 import com.me.pojo.Job;
 
 public class JobDAOImpl implements JobDAO{
@@ -18,5 +22,33 @@ public class JobDAOImpl implements JobDAO{
 	        	DAO.close();
 	        }
 	}
+	
+	public ArrayList<Job> findByUserId(long l) throws AdException {
+        DAO.begin();
+		try {
+            Query q = DAO.getSession().createQuery("from Job where clientId = :clientId");
+            q.setLong("clientId", l);
+            ArrayList<Job> list = (ArrayList<Job>) q.list();
+            DAO.commit();
+            return list;
+        } catch (HibernateException e) {
+            DAO.rollback();
+            throw new AdException("Could not get Job for" + l , e);
+        }
+    }
+	
+	public ArrayList<Job> findByKeyword(String keyword) throws AdException {
+        DAO.begin();
+		try {
+            Query q = DAO.getSession().createQuery("from Job where jobDescription LIKE :keyword");
+            q.setString("keyword", "%"+keyword+"%");
+            ArrayList<Job> list = (ArrayList<Job>) q.list();
+            DAO.commit();
+            return list;
+        } catch (HibernateException e) {
+            DAO.rollback();
+            throw new AdException("Could not get Job for" + keyword , e);
+        }
+    }
 
 }

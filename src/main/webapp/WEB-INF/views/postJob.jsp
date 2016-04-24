@@ -69,7 +69,7 @@ return false;
 						</ul>
 					</li>
 					<li><a href="contact.html">Contact</a></li>
-					<li class="active"><a class="btn" href="signin.jsp">SIGN IN / SIGN UP</a></li>
+					<li class="active"><a class="btn" href="logout.htm">LOGOUT</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
