@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,6 +23,11 @@ public class JobApplication {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "applicationId", unique = true, nullable = false)
 	private long applicationId;
+	
+	private String photoName;
+	
+	@Transient
+	private MultipartFile photo;
 	
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "personID")
@@ -36,6 +42,22 @@ public class JobApplication {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "jobId", nullable = false)
 	private Job job;
+
+	public String getPhotoName() {
+		return photoName;
+	}
+
+	public void setPhotoName(String photoName) {
+		this.photoName = photoName;
+	}
+
+	public MultipartFile getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(MultipartFile photo) {
+		this.photo = photo;
+	}
 
 	public String getAboutYou() {
 		return aboutYou;

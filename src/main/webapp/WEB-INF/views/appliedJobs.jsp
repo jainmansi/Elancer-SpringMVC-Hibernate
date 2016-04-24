@@ -48,11 +48,13 @@
            						<td> <c:out value=" ${application.job.jobTitle}"/><br></td>
            						<td> <c:out value=" ${application.job.jobDescription}"/><br></td>
            						<td> <c:out value=" ${application.job.pay}"/><br></td>  
-           						<td> <c:out value=" ${application.status}"/><br></td>       						
+           						<td> <c:out value=" ${application.status}"/><br></td>
+           						<td> </td>       						
            					</tr>
                         </c:forEach> 
                         </tbody>
 						</table>
+						<a style="text-decoration:none" href="report.htm" target="_blank"><h4><span class="label label-warning">Download Report</span></h4></a>
 
 	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>

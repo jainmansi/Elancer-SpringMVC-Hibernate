@@ -84,7 +84,12 @@
 							<p class="text-center text-muted">It's your time to shine.</p>
 							<hr>
 
-							<form:form action="application.htm" commandName="jobApplication" modelAttribute="jobApplication" method="post" >
+							<form:form action="application.htm" commandName="jobApplication" modelAttribute="jobApplication" method="post" enctype = "multipart/form-data" >
+								<div class="row">
+								<div class="col-sm-12">
+									<form:input path = "photo" type = "file"/><br/><br/>
+								</div>
+								</div>
 								<div class="row">
 								<div class="col-sm-12">
 									<form:textarea placeholder="Tell us something about you..." path="aboutYou" class="form-control" rows="7"></form:textarea><br/><br/>

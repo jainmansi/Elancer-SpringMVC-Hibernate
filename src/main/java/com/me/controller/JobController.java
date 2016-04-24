@@ -1,8 +1,10 @@
 package com.me.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -18,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
 
 import com.me.dao.ApplicantDAOImpl;
 import com.me.dao.ApplicationDAOImpl;
@@ -32,6 +37,7 @@ import com.me.pojo.Job;
 import com.me.pojo.JobApplication;
 import com.me.pojo.JobCategory;
 import com.me.pojo.Person;
+import com.me.springview.PdfReportView;
 
 @Controller
 @SessionAttributes("username")
@@ -62,6 +68,9 @@ public class JobController {
 	@Autowired
 	@Qualifier("categoryDao")
 	JobCategoryDAOImpl categoryDao;
+	
+	@Autowired
+	ServletContext servletContext;
 	
 	@RequestMapping(value="/addJob.htm", method = RequestMethod.GET)
 	protected String addJobPage(@ModelAttribute("job") Job job, BindingResult result, HttpServletRequest request, Model model) throws Exception{
@@ -165,7 +174,7 @@ public class JobController {
 	}
 	
 	@RequestMapping(value="/application.htm", method = RequestMethod.POST)
-	protected String applicationProcessing(@ModelAttribute("jobApplication") JobApplication jobApplication, BindingResult result, HttpServletRequest request, ModelMap model) throws Exception{
+	protected String applicationProcessing(@ModelAttribute("jobApplication") JobApplication jobApplication, BindingResult result,@RequestParam("photo") MultipartFile photoFile, HttpServletRequest request, ModelMap model) throws Exception{
 		HttpSession session = request.getSession();
 		String username = (String) session.getAttribute("username");
 		
@@ -177,6 +186,45 @@ public class JobController {
 		//System.out.println("jobid"+id);
 		Job job = jobDao.findById(id);
 		session.removeAttribute("jobid");
+		
+		File file;
+        System.out.println("111111111111111111");
+        String check = File.separator; //Checking if system is linux based or windows based by checking seprator used.
+        System.out.println("22222222222");
+        String path = null;
+        if(check.equalsIgnoreCase("\\")) {
+            System.out.println("33333333333333");
+         path = servletContext.getRealPath("").replace("build\\",""); //Netbeans projects gives real path as Lab6/build/web/ so we need to replace build in the path.
+     }
+     
+         if(check.equalsIgnoreCase("/")) {
+             System.out.println("44444444444444444");
+        path = servletContext.getRealPath("").replace("build/","");
+        System.out.println("5555555555555");
+        path += "/"; //Adding trailing slash for Mac systems.
+
+     }
+         System.out.println("6666666666666");
+         if(jobApplication.getPhoto() != null){
+             System.out.println("77777777777"+jobApplication.getPhoto());
+            String fileNameWithExt = System.currentTimeMillis() + jobApplication.getPhoto().getOriginalFilename();
+            //String fileNameWithoutExt = fileNameWithExt.substring(0,fileNameWithExt.length()-4);
+             //System.out.println("1888888888888"+fileNameWithoutExt);
+             file = new File(path+fileNameWithExt);
+             System.out.println("99999999999"+file);
+             String context = servletContext.getContextPath();
+             System.out.println("0000000000000000"+context);
+             jobApplication.getPhoto().transferTo(file);
+             System.out.println("0000000000000000"+path+fileNameWithExt);
+             //advertApt.setPhotoName(path+fileNameWithExt);
+             jobApplication.setPhotoName(path+fileNameWithExt);
+             System.out.println("0000000000000000");
+//                  File file1 = File.createTempFile(fileNameWithoutExt, ".jpg", new File("D:\\sem2\\WebTools\\Project"));
+//                  advertApt.getPhoto().transferTo(file1);
+         }
+        
+        
+        //AdvertisementAparjobApplicationtment advApt = advertApts.create(title,advertApt.getPhotoName(), message, host,category.getId(),category.getTitle(),price, street, city, state, zip, rooms, numOfBeds,bathrooms,maxOccupants,priceExtraOccupant,furnished,checkIn,checkOut);
 		jobApplication.setJob(job);
 		
 		jobApplication.setStatus("Applied");
@@ -234,6 +282,7 @@ public class JobController {
 		model.addAttribute("applications", applications);
 		return "appliedJobs";
 	}
+	
 	
 }
 	
