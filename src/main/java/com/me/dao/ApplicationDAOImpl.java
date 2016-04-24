@@ -39,4 +39,47 @@ public class ApplicationDAOImpl implements ApplicationDAO{
         }
     }
 
+	@Override
+	public JobApplication findByApplicationId(int id) throws AdException {
+		DAO.begin();
+		try {
+            Query q = DAO.getSession().createQuery("from JobApplication where applicationId = :id");
+            q.setInteger("id", id);
+            JobApplication application = (JobApplication) q.uniqueResult();
+            DAO.commit();
+            return application;
+        } catch (HibernateException e) {
+            DAO.rollback();
+            throw new AdException("Could not get Job Application " + id , e);
+        }
+	}
+	
+	public ArrayList<JobApplication> findByApplicantId(long id) throws AdException {
+		DAO.begin();
+		try {
+            Query q = DAO.getSession().createQuery("from JobApplication where personID = :id");
+            q.setLong("id", id);
+            ArrayList<JobApplication> applicationList = (ArrayList<JobApplication>) q.list();
+            DAO.commit();
+            return applicationList;
+        } catch (HibernateException e) {
+            DAO.rollback();
+            throw new AdException("Could not get Job Application " + id , e);
+        }
+	}
+	
+	public void updateStatus(int id, String status) throws AdException{
+		DAO.begin();
+		try {
+            Query q = DAO.getSession().createQuery("UPDATE JobApplication SET status = :status WHERE applicationId = :id");
+            q.setString("status", status);
+            q.setInteger("id", id);
+            int result = q.executeUpdate();
+            DAO.commit();
+        } catch (HibernateException e) {
+            DAO.rollback();
+            throw new AdException("Could not get Job Application " + id , e);
+        }
+	}
+
 }

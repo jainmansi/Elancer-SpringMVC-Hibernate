@@ -37,6 +37,8 @@ import com.me.pojo.Person;
 @SessionAttributes("username")
 public class JobController {
 	
+	private static final int JobApplication = 0;
+
 	@Autowired
 	@Qualifier("personDao")
 	PersonDAOImpl personDao;
@@ -123,7 +125,7 @@ public class JobController {
 		return "viewJobs";
 	}
 	
-	@RequestMapping(value="/searchJobs.htm", method = RequestMethod.GET)
+	@RequestMapping(value="/searchJobs.htm", method = RequestMethod.POST)
 	protected String signinForm(@ModelAttribute("job") Job job, BindingResult result, HttpServletRequest request, ModelMap model) throws Exception{
 		ArrayList<JobCategory> categoryList = new ArrayList<JobCategory>();
 		categoryList = categoryDao.findAll();
@@ -191,6 +193,46 @@ public class JobController {
 		ArrayList<Job> searchList = (ArrayList<Job>) jobDao.findByKeyword(keyword, categoryId);
 		model.addAttribute("searchList", searchList);
 		return "searchResult";
+	}
+	
+	@RequestMapping(value="/details.htm", method = RequestMethod.GET)
+	protected String moreDetails(@ModelAttribute("jobApplication") JobApplication jobApplication, BindingResult result, HttpServletRequest request, Model model) throws AdException{
+		int id = Integer.parseInt(request.getParameter("id"));
+		JobApplication ja = applicationDao.findByApplicationId(id);
+		model.addAttribute("application", ja);
+		return "applicantDetails";
+	}
+	
+	@RequestMapping(value="/result.htm", method = RequestMethod.GET)
+	protected String applicationResult(@ModelAttribute("jobApplication") JobApplication jobApplication, BindingResult result, HttpServletRequest request, Model model) throws AdException{
+		String res = request.getParameter("val");
+		int id = Integer.parseInt(request.getParameter("app"));
+		
+		JobApplication application = applicationDao.findByApplicationId(id);
+		
+		if(res.equals("approved")){
+			applicationDao.updateStatus(id, "Approved");
+		}
+		else if(res.equals("rejected")){
+			applicationDao.updateStatus(id, "Rejected");
+		}
+		else{
+			applicationDao.updateStatus(id, "Pending");
+		}
+		return "redirect:/viewMyJobs.htm";
+	}
+	
+	@RequestMapping(value="/viewAppliedJobs.htm", method = RequestMethod.GET)
+	protected String appliedJobs(@ModelAttribute("jobApplication") JobApplication jobApplication, BindingResult result, HttpServletRequest request, Model model) throws AdException{
+		HttpSession session = request.getSession();
+		String username = (String) session.getAttribute("username");
+		
+		Person person = personDao.findByUsername(username);
+		long personId = person.getPersonID();
+		
+		ArrayList<JobApplication> applications = applicationDao.findByApplicantId(personId);
+		model.addAttribute("applications", applications);
+		return "appliedJobs";
 	}
 	
 }

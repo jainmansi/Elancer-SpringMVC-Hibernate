@@ -13,7 +13,7 @@
 	
 	<title>Elancrr - where work is get done!</title>
 
-	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
+	<link rel="shortcut icon" href="resources/images/gt_favicon.png">
 	
 	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
 	<link rel="stylesheet" href="resources/css/bootstrap.min.css">
@@ -28,10 +28,6 @@
 	<script src="resources/js/html5shiv.js"></script>
 	<script src="resources/js/respond.min.js"></script>
 	<![endif]-->
-	
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -41,11 +37,12 @@
 			<div class="navbar-header">
 				<!-- Button for smallest screens -->
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-				<a class="navbar-brand" href="index.html"><img src="resources/images/logo.png" alt="Progressus HTML5 template"></a>
+				<a class="navbar-brand" href="index.html">
+				<img src="resources/images/logo.png" alt="Progressus HTML5 template"></a>
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
-					<li><a href="index.html">Home</a></li>
+					<li><a href="myhome.htm">Home</a></li>
 					<li><a href="about.html">About</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">More Pages <b class="caret"></b></a>
@@ -68,8 +65,8 @@
 	<div class="container">
 
 		<ol class="breadcrumb">
-			<li><a href="index.html">Home</a></li>
-			<li class="active">${title}</li>
+			<li><a href="myhome.htm">Home</a></li>
+			<li class="active">Registration</li>
 		</ol>
 
 		<div class="row">
@@ -77,18 +74,23 @@
 			<!-- Article main content -->
 			<article class="col-xs-12 maincontent">
 				<header class="page-header">
-					<h1 class="page-title">${title}</h1>
+					<h1 class="page-title">Registration</h1>
 				</header>
-				<c:forEach var="application" items="${applications}" varStatus="status">
-				<blockquote>
-					<p><span class="glyphicon glyphicon-bookmark"></span> &nbsp;<b>Application Number: ${application.applicationId}</b></p>
-					<p><span class="glyphicon glyphicon-comment"></span> &nbsp;About Applicant: ${application.aboutYou}</p>
-					<p><span class="glyphicon glyphicon-exclamation-sign"></span> &nbsp;Application Status: ${application.status}</p>
-					<p><span class="glyphicon glyphicon-user"></span> &nbsp; Applicant Name: ${application.appliedBy.firstName} &nbsp; ${application.appliedBy.lastName}</p>
+				
+				<p>Applicant Name: ${application.appliedBy.firstName} &nbsp; ${application.appliedBy.lastName} </p>
+				<p>About: ${application.aboutYou}</p>
+				<p>Status: ${application.status}</p>
+				<p>Contact Details: ${application.appliedBy.email}</p>
+				<h3>
+				<a style="text-decoration:none" href="result.htm?val=approved&app=${application.applicationId}">
 					
-					<h3><a style="text-decoration:none" href="details.htm?id=${application.applicationId}"><span class="label label-default">More Details</span></a></h3>
-				</blockquote>
-				</c:forEach>
+						<span class="label label-warning">Approve</span><br/></br>
+					
+				</a>
+				<a style="text-decoration:none" href="result.htm?val=rejected&app=${application.applicationId}">
+								<span class="label label-danger">Reject</span>			
+				</a>
+				</h3>		
 				
 			</article>
 			<!-- /Article -->
