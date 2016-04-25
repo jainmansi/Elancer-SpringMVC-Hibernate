@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	<bean id="userValidator" class="com.me.controller.UserValidator"></bean>
+	<bean id="personValidator" class="com.me.controller.PersonValidator"></bean>
 	<bean id="personDao" class="com.me.dao.PersonDAOImpl"></bean>
 	<bean id="clientDao" class="com.me.dao.ClientDAOImpl"></bean>
 	<bean id="applicantDao" class="com.me.dao.ApplicantDAOImpl"></bean>

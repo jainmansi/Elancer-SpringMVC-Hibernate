@@ -87,7 +87,7 @@
 							<form:form action="application.htm" commandName="jobApplication" modelAttribute="jobApplication" method="post" enctype = "multipart/form-data" >
 								<div class="row">
 								<div class="col-sm-12">
-									<form:input path="photo" type="file"/><br/><br/>
+									<form:input path="resume" type="file"/><br/><br/>
 								</div>
 								</div>
 								<div class="row">

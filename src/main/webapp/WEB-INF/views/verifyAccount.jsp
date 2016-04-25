@@ -13,7 +13,7 @@
 	
 	<title>Elancrr - where work is get done!</title>
 
-	<link rel="shortcut icon" href="resources/images/gt_favicon.png">
+	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
 	
 	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
 	<link rel="stylesheet" href="resources/css/bootstrap.min.css">
@@ -51,7 +51,7 @@
 						</ul>
 					</li>
 					<li><a href="contact.html">Contact</a></li>
-					<li class="active"><a class="btn" href="signin.htm">SIGN IN / SIGN UP</a></li>
+					<li class="active"><a class="btn" href="signin.jsp">SIGN IN / SIGN UP</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -79,61 +79,7 @@
 				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<h3 class="thin text-center">Register a new account</h3>
-							<p class="text-center text-muted">Already a member? <a href="signin.jsp">Login</a> from here. </p>
-							<hr>
-
-							<form:form action = "clientsignup.htm" commandName="person" modelAttribute="person" method="post" >
-								
-								<div class="top-margin">
-									<label>First Name<span class="text-danger">*</span></label>
-									<form:input path="firstName" pattern="[a-zA-Z]*" title="Enter a valid first name" required = "true" class="form-control"/>
-									<font color="red"><form:errors path="firstName"/></font>
-								</div>
-								
-								<div class="top-margin">
-									<label>Last Name<span class="text-danger">*</span></label>
-									<form:input path="lastName" pattern="[a-zA-Z]*" title="Enter a valid last name" required = "true" class="form-control"/>
-									<font color="red"><form:errors path="lastName"/></font>
-								</div>
-								
-								<div class="top-margin">
-									<label>Username<span class="text-danger">*</span></label>
-									<form:input path="username" pattern="[a-zA-Z0-9]{3,15}" required = "true" class="form-control"/>
-									<font color="red"><form:errors path="username"/></font>
-								</div>
-								<div class="top-margin">
-									<label>Email Address <span class="text-danger">*</span></label>
-									<form:input type="email" path="email" required="true" class="form-control"/>
-									<font color="red"><form:errors path="email"/></font>
-								</div>
-
-								<div class="row top-margin">
-									<div class="col-sm-6">
-										<label>Password <span class="text-danger">*</span></label>
-										<form:input path="password" pattern="[a-zA-Z0-9]{3,15}" required = "true" title="Minimum length of password should be 6 characters." type="password" class="form-control"/>
-										<font color="red"><form:errors path="password"/></font>
-									</div>
-									<div class="col-sm-6">
-										<label>Confirm Password <span class="text-danger">*</span></label>
-										<input type="password" pattern="[a-zA-Z0-9]{3,15}" required = "true" title="Minimum length of password should be 6 characters." name="confirmPassword" class="form-control"/>
-										<font color="red"><form:errors path="confirmPassword"/></font>
-									</div>
-								</div>
-
-								<hr>
-								
-								<form:input type="hidden" path="usertype" value="client"/>
-
-								<div class="row">
-									<div class="col-lg-8">
-										                   
-									</div>
-									<div class="col-lg-4 text-right">
-										<button class="btn btn-action" type="submit">Register</button>
-									</div>
-								</div>
-							</form:form>
+							<p> Your account has been successfully created. <a href="signin.htm">Click here</a> to login! </p>
 						</div>
 					</div>
 

@@ -4,6 +4,7 @@ package com.me.controller;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,12 +18,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.me.dao.ClientDAOImpl;
 import com.me.dao.PersonDAOImpl;
+import com.me.email.ConfirmationEmail;
 //import com.me.dao.UserDAOImpl;
 import com.me.dao.ApplicantDAOImpl;
 import com.me.exception.AdException;
@@ -35,14 +39,14 @@ public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
-//	@Autowired
-//	@Qualifier("userValidator")
-//	UserValidator validator;
-//	
-//	@InitBinder
-//	private void initBinder(WebDataBinder binder){
-//		binder.setValidator(validator);
-//	}
+	@Autowired
+	@Qualifier("personValidator")
+	PersonValidator validator;
+
+	@InitBinder
+	private void initBinder(WebDataBinder binder){
+		binder.setValidator(validator);
+	}
 	
 	@Autowired
 	@Qualifier("personDao")
@@ -71,10 +75,13 @@ public class HomeController {
 	
 	@RequestMapping(value="/clientsignup.htm", method=RequestMethod.POST)
 	protected String doSubmitAction(@ModelAttribute("person")Person person, BindingResult result, HttpServletRequest request, ModelMap model) throws Exception{
-		//validator.validate(user, result);
-//		if (result.hasErrors()) {
-//			return null;
-//		}
+		System.out.println("111");
+		validator.validate(person, result);
+		System.out.println("222");
+		if (result.hasErrors()) {
+			System.out.println("333");
+			return "clientSignup";
+		}
 		
 		System.out.println(person.getFirstName());
 		
@@ -126,6 +133,30 @@ public class HomeController {
 			applicant.setPassword(person.getPassword());
 			applicant.setConfirmPassword(person.getConfirmPassword());
 			applicantDao.save(applicant);
+			
+		        Random random = new Random();
+		        int length = 5 + (Math.abs(random.nextInt()) % 3);
+		        StringBuffer OTPStrBuffer = new StringBuffer();
+		        for (int i = 0; i < length; i++) {
+		            int baseCharacterNumber = Math.abs(random.nextInt()) % 62;
+		            int characterNumber = 0;
+		            if (baseCharacterNumber < 26) {
+		                characterNumber = 65 + baseCharacterNumber;
+		            } else if (baseCharacterNumber < 52) {
+		                characterNumber = 97 + (baseCharacterNumber - 26);
+		            } else {
+		                characterNumber = 48 + (baseCharacterNumber - 52);
+		            }
+		            OTPStrBuffer.append((char) characterNumber);
+		        }
+		        
+		        
+			
+			ConfirmationEmail confEmail = new ConfirmationEmail();
+			String body = "Done";
+			confEmail.setBody(body);
+			confEmail.setRecipient(person.getEmail());
+			confEmail.sendEmailToCLient();
 			
 			System.out.println("Saved applicant and person");
 			return "confirm";

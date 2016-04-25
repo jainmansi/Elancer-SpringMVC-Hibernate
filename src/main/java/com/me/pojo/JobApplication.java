@@ -24,11 +24,11 @@ public class JobApplication {
 	@Column(name = "applicationId", unique = true, nullable = false)
 	private long applicationId;
 	
-	@Column(name = "photoName")
-	private String photoName;
+	@Column(name = "fileName")
+	private String fileName;
 	
 	@Transient
-	private MultipartFile photo;
+	private MultipartFile resume;
 	
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "personID")
@@ -44,20 +44,12 @@ public class JobApplication {
 	@JoinColumn(name = "jobId", nullable = false)
 	private Job job;
 
-	public String getPhotoName() {
-		return photoName;
+	public MultipartFile getResume() {
+		return resume;
 	}
 
-	public void setPhotoName(String photoName) {
-		this.photoName = photoName;
-	}
-
-	public MultipartFile getPhoto() {
-		return photo;
-	}
-
-	public void setPhoto(MultipartFile photo) {
-		this.photo = photo;
+	public void setResume(MultipartFile resume) {
+		this.resume = resume;
 	}
 
 	public String getAboutYou() {
@@ -98,6 +90,14 @@ public class JobApplication {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
 }

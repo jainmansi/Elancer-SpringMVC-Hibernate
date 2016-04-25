@@ -1,7 +1,5 @@
-<!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
@@ -22,7 +20,7 @@
            						<td>  ${application.job.pay}<br></td>  
            						<td>  ${application.status}<br></td>
            					</tr>
-           				</#list> 
+           				<#list> 
                         </tbody>
 						</table>
 						<a style="text-decoration:none" href="report.htm" target="_blank"><h4><span class="label label-warning">Download Report</span></h4></a>

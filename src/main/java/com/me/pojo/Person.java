@@ -40,6 +40,9 @@ public class Person {
 	
 	@Column(name = "usertype")
 	private String usertype;
+	
+	@Column(name = "otp")
+	private String otp;
 
 	public String getUsername() {
 		return username;
@@ -104,5 +107,15 @@ public class Person {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
+	public String getOtp() {
+		return otp;
+	}
+
+	public void setOtp(String otp) {
+		this.otp = otp;
+	}
+	
+	
 
 }
