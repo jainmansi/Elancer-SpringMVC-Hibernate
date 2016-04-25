@@ -173,9 +173,17 @@ public class HomeController {
 		System.out.println(username);
 		
 		if(username!=null){
-			if(personDao.findByUsername(username).getUsertype().equals("admin"))
+			String usertype = personDao.findByUsername(username).getUsername();
+			if(usertype.equals("admin"))
 			return "adminpage";
+			else if(usertype.equals("client")){
+				return "landingpage";
+			}
+			else if(usertype.equals("applicant")){
+				return "homepage";
+			}
 		}
+		
 		
 		return "redirect:/";
 	}
@@ -187,6 +195,13 @@ public class HomeController {
 			return "clientSignup";
 		else
 			return "elancrrSignup";
+	}
+	
+	@RequestMapping(value="/resume.htm", method = RequestMethod.GET)
+			protected String resume(@ModelAttribute("person") Person person, BindingResult result, HttpServletRequest request, ModelMap model) {
+		HttpSession session = request.getSession();	
+		session.getAttribute("resumeName");
+		return "resumeName";
 	}
 	
 }

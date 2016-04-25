@@ -72,7 +72,7 @@ public class JobController {
 	@Autowired
 	ServletContext servletContext;
 	
-	@RequestMapping(value="/addJob.htm", method = RequestMethod.GET)
+	@RequestMapping(value="/addJobClient.htm", method = RequestMethod.GET)
 	protected String addJobPage(@ModelAttribute("job") Job job, BindingResult result, HttpServletRequest request, Model model) throws Exception{
 		ArrayList<JobCategory> categoryList = new ArrayList<JobCategory>();
 		categoryList = categoryDao.findAll();
@@ -125,13 +125,15 @@ public class JobController {
 	@RequestMapping(value="/viewMyJobs.htm", method = RequestMethod.GET)
 	protected String viewCategory(@ModelAttribute("jobCategory") JobCategory jobCategory, BindingResult result, HttpServletRequest request, Model model) throws Exception{
 		
+		//System.out.println("11111111111111111111");
+		
 		HttpSession session = request.getSession();
 		String username = (String) session.getAttribute("username");
 		
 		ArrayList<Job> jobList = new ArrayList<Job>();
 		jobList = jobDao.findByUserId(personDao.findByUsername(username).getPersonID());
 		model.addAttribute("myJobList", jobList);
-		return "viewJobs";
+		return "showJobs";
 	}
 	
 	@RequestMapping(value="/searchJobs.htm", method = RequestMethod.POST)
@@ -188,37 +190,23 @@ public class JobController {
 		session.removeAttribute("jobid");
 		
 		File file;
-        System.out.println("111111111111111111");
         String check = File.separator; //Checking if system is linux based or windows based by checking seprator used.
-        System.out.println("22222222222");
         String path = null;
         if(check.equalsIgnoreCase("\\")) {
-            System.out.println("33333333333333");
-         path = servletContext.getRealPath("").replace("build\\",""); //Netbeans projects gives real path as Lab6/build/web/ so we need to replace build in the path.
+         path = servletContext.getRealPath("").replace("build\\","resources\\uploads\\"); //Netbeans projects gives real path as Lab6/build/web/ so we need to replace build in the path.
      }
      
          if(check.equalsIgnoreCase("/")) {
-             System.out.println("44444444444444444");
-        path = servletContext.getRealPath("").replace("build/","");
-        System.out.println("5555555555555");
+        path = servletContext.getRealPath("").replace("build/","resources/uploads/");
         path += "/"; //Adding trailing slash for Mac systems.
 
      }
-         System.out.println("6666666666666");
          if(jobApplication.getPhoto() != null){
-             System.out.println("77777777777"+jobApplication.getPhoto());
             String fileNameWithExt = System.currentTimeMillis() + jobApplication.getPhoto().getOriginalFilename();
-            //String fileNameWithoutExt = fileNameWithExt.substring(0,fileNameWithExt.length()-4);
-             //System.out.println("1888888888888"+fileNameWithoutExt);
              file = new File(path+fileNameWithExt);
-             System.out.println("99999999999"+file);
              String context = servletContext.getContextPath();
-             System.out.println("0000000000000000"+context);
              jobApplication.getPhoto().transferTo(file);
-             System.out.println("0000000000000000"+path+fileNameWithExt);
-             //advertApt.setPhotoName(path+fileNameWithExt);
              jobApplication.setPhotoName(path+fileNameWithExt);
-             System.out.println("0000000000000000");
 //                  File file1 = File.createTempFile(fileNameWithoutExt, ".jpg", new File("D:\\sem2\\WebTools\\Project"));
 //                  advertApt.getPhoto().transferTo(file1);
          }
@@ -230,7 +218,7 @@ public class JobController {
 		jobApplication.setStatus("Applied");
 		applicationDao.save(jobApplication);
 		
-		return "success";
+		return "appliedSuccessfully";
 	}
 	
 	@RequestMapping("/search.htm")
@@ -280,7 +268,7 @@ public class JobController {
 		
 		ArrayList<JobApplication> applications = applicationDao.findByApplicantId(personId);
 		model.addAttribute("applications", applications);
-		return "appliedJobs";
+		return "showAppliedJobs";
 	}
 	
 	

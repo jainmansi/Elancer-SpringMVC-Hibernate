@@ -68,32 +68,32 @@
 			<li><a href="myhome.htm">Home</a></li>
 			<li class="active">Registration</li>
 		</ol>
-
-		<div class="row">
 			
-			<!-- Article main content -->
-			<article class="col-xs-12 maincontent">
 				<header class="page-header">
 					<h1 class="page-title">Registration</h1>
 				</header>
 				
-				<p>Applicant Name: ${application.appliedBy.firstName} &nbsp; ${application.appliedBy.lastName} </p>
-				<p>About: ${application.aboutYou}</p>
-				<p>Status: ${application.status}</p>
-				<p>Contact Details: ${application.appliedBy.email}</p>
+				<div style="width:40%; float:left">
+				<p><b>Applicant Name:</b> ${application.appliedBy.firstName} &nbsp; ${application.appliedBy.lastName} </p>
+				<p><b>About:</b> ${application.aboutYou}</p>
+				<p><b>Status:</b> ${application.status}</p>
+				<p><b>Contact Details:</b> ${application.appliedBy.email}</p>
 				<h3>
 				<a style="text-decoration:none" href="result.htm?val=approved&app=${application.applicationId}">
 					
-						<span class="label label-warning">Approve</span><br/></br>
+						<span class="label label-warning">Approve</span>
 					
 				</a>
 				<a style="text-decoration:none" href="result.htm?val=rejected&app=${application.applicationId}">
-								<span class="label label-danger">Reject</span>			
+								<span class="label label-default">Reject</span>			
 				</a>
-				</h3>		
+				</h3>	
+				</div>
+				<div>
+					
+						<a href="${application.photoName}">Resume</a>
+				</div>
 				
-			</article>
-			<!-- /Article -->
 
 		</div>
 	</div>	<!-- /container -->

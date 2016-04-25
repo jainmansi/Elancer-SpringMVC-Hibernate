@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Job Title</th>
+				<th>Job Description</th>
+				<th>Job Category</th>
+				<th>Salary</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+		#foreach($job in $myJobList)
+				<tr>
+					<td>$job.jobTitle<br></td>
+					<td>$job.jobDescription<br></td>
+					<td>$job.jobCategory.categoryName<br></td>
+					<td>$job.pay</td>
+					<td><a style="text-decoration: none" href="jobStatus.htm?id=$job.jobId"><h4>
+								<span class="label label-warning">View Status</span>
+							</h4></a></td>
+				</tr>
+			#end
+		</tbody>
+	</table>
+
+
+</body>
+</html>

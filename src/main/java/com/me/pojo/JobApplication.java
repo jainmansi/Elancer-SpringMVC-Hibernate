@@ -24,6 +24,7 @@ public class JobApplication {
 	@Column(name = "applicationId", unique = true, nullable = false)
 	private long applicationId;
 	
+	@Column(name = "photoName")
 	private String photoName;
 	
 	@Transient
