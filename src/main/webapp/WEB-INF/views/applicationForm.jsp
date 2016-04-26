@@ -74,7 +74,7 @@
 			<!-- Article main content -->
 			<article class="col-xs-12 maincontent">
 				<header class="page-header">
-					<h1 class="page-title">Add New Category</h1>
+					<h1 class="page-title">Apply Now!</h1>
 				</header>
 				
 				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2" style="float:left">
@@ -87,6 +87,7 @@
 							<form:form action="application.htm" commandName="jobApplication" modelAttribute="jobApplication" method="post" enctype = "multipart/form-data" >
 								<div class="row">
 								<div class="col-sm-12">
+									<label>Insert your resume:</label>
 									<form:input path="resume" type="file"/><br/><br/>
 								</div>
 								</div>

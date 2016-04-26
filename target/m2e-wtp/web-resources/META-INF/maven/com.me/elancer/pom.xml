@@ -69,13 +69,6 @@
 			<artifactId>hibernate-validator</artifactId>
 			<version>5.1.0.Final</version>
 		</dependency>
-		
-		<!-- Jackson JSON Mapper -->
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>1.9.10</version>
-		</dependency>
 
 		<!-- Apache Commons FileUpload -->
 		<dependency>
@@ -219,6 +212,14 @@
 			<version>1.2</version>
 		</dependency>
 
+		<!-- JSON -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20090211</version>
+		</dependency>
+
+
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -226,6 +227,7 @@
 			<version>4.7</version>
 			<scope>test</scope>
 		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>

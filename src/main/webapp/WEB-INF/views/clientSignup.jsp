@@ -29,7 +29,35 @@
 	<script src="resources/js/respond.min.js"></script>
 	<![endif]-->
 </head>
+<script>
+    function sampleAjax() {
 
+        $.ajax({
+            type : "POST",
+            url : "checkUsername",
+            contentType: "application/json",
+            dataType : "json",
+            data : $('#username').val(),
+            success : function(response) {
+            	
+            },
+        
+            error : function(){
+            	displayTheContent(response);
+                //write whatever you want here
+            }
+
+        });
+
+    }
+    
+    function displayTheContent(response){
+        $("#displayDiv").empty();
+        
+            $("#displayDiv").append("Username already exist.");
+        
+    }
+</script>
 <body>
 	<!-- Fixed navbar -->
 	<div class="navbar navbar-inverse navbar-fixed-top headroom" >
@@ -41,7 +69,6 @@
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
-					<li><a href="index.html">Home</a></li>
 					<li><a href="about.html">About</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">More Pages <b class="caret"></b></a>
@@ -64,7 +91,6 @@
 	<div class="container">
 
 		<ol class="breadcrumb">
-			<li><a href="index.html">Home</a></li>
 			<li class="active">Registration</li>
 		</ol>
 
@@ -80,9 +106,9 @@
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<h3 class="thin text-center">Register a new account</h3>
-							<p class="text-center text-muted">Already a member? <a href="signin.jsp">Login</a> from here. </p>
+							<p class="text-center text-muted">Already a member? <a href="signin.htm">Login</a> from here. </p>
 							<hr>
-
+	<div id="displayDiv"></div>
 							<form:form action = "clientsignup.htm" commandName="person" modelAttribute="person" method="post" >
 								
 								<div class="top-margin">
@@ -99,7 +125,7 @@
 								
 								<div class="top-margin">
 									<label>Username<span class="text-danger">*</span></label>
-									<form:input path="username" pattern="[a-zA-Z0-9]{3,15}" required = "true" class="form-control"/>
+									<form:input path="username" onblur="sampleAjax()" pattern="[a-zA-Z0-9]{3,15}" required = "true" class="form-control"/>
 									<font color="red"><form:errors path="username"/></font>
 								</div>
 								<div class="top-margin">

@@ -14,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -75,6 +77,10 @@ public class JobController {
 	@RequestMapping(value = "/addJobClient.htm", method = RequestMethod.GET)
 	protected String addJobPage(@ModelAttribute("job") Job job, BindingResult result, HttpServletRequest request,
 			Model model) throws Exception {
+		HttpSession session = request.getSession();
+        if(session.getAttribute("username")==null){
+            return "redirect:/signin.htm";
+        }
 		ArrayList<JobCategory> categoryList = new ArrayList<JobCategory>();
 		categoryList = categoryDao.findAll();
 
@@ -94,10 +100,13 @@ public class JobController {
 	@RequestMapping(value = "/addJob.htm", method = RequestMethod.POST)
 	protected String addJobForm(@ModelAttribute("job") Job job, BindingResult result, HttpServletRequest request,
 			ModelMap model) throws Exception {
+		HttpSession session = request.getSession();
+        if(session.getAttribute("username")==null){
+            return "redirect:/signin.htm";
+        }
 		try {
 
 			// System.out.println(job.getJobCategory().getCategoryId());
-			HttpSession session = request.getSession();
 			String username = (String) session.getAttribute("username");
 
 			System.out.println(username);
@@ -107,10 +116,10 @@ public class JobController {
 			long id = person.getPersonID();
 			Client client = (Client) clientDao.findById(id);
 			job.setPostedBy(client);
-			
-			System.out.println("JOB "+job.getPostedBy().getFirstName());
+
+			System.out.println("JOB " + job.getPostedBy().getFirstName());
 			System.out.println(id);
-			System.out.println("IDDDDDD"+job.getPostedBy().getPersonID());
+			System.out.println("IDDDDDD" + job.getPostedBy().getPersonID());
 
 			int catid = Integer.parseInt(request.getParameter("catId"));
 			JobCategory selectedCategory = new JobCategory();
@@ -133,8 +142,12 @@ public class JobController {
 			HttpServletRequest request, Model model) throws Exception {
 
 		// System.out.println("11111111111111111111");
-
+		
 		HttpSession session = request.getSession();
+        if(session.getAttribute("username")==null){
+            return "redirect:/signin.htm";
+        }
+
 		String username = (String) session.getAttribute("username");
 
 		ArrayList<Job> jobList = new ArrayList<Job>();
@@ -165,8 +178,13 @@ public class JobController {
 	@RequestMapping(value = "/applyNow.htm", method = RequestMethod.GET)
 	protected String jobApplication(@ModelAttribute("jobApplication") JobApplication jobApplication,
 			BindingResult result, HttpServletRequest request, ModelMap model) {
-		int i = Integer.parseInt(request.getParameter("id"));
+		
 		HttpSession session = request.getSession();
+        if(session.getAttribute("username")==null){
+            return "redirect:/signin.htm";
+        }
+		
+		int i = Integer.parseInt(request.getParameter("id"));
 		session.setAttribute("jobid", i);
 		// System.out.println(i);
 		return "applicationForm";
@@ -175,6 +193,12 @@ public class JobController {
 	@RequestMapping(value = "/jobStatus.htm", method = RequestMethod.GET)
 	protected String jobStatus(@ModelAttribute("jobApplication") JobApplication jobApplication, BindingResult result,
 			HttpServletRequest request, Model model) throws AdException {
+		
+		HttpSession session = request.getSession();
+        if(session.getAttribute("username")==null){
+            return "redirect:/signin.htm";
+        }
+		
 		int i = Integer.parseInt(request.getParameter("id"));
 		Job job = jobDao.findById(i);
 		String title = job.getJobTitle();
@@ -185,86 +209,94 @@ public class JobController {
 		return "jobStatus";
 	}
 
-	@RequestMapping(value="/application.htm", method = RequestMethod.POST)
-	protected String applicationProcessing(@ModelAttribute("jobApplication") JobApplication jobApplication, BindingResult result,@RequestParam("resume") MultipartFile resume, HttpServletRequest request, ModelMap model) throws Exception{
+	@RequestMapping(value = "/application.htm", method = RequestMethod.POST)
+	protected String applicationProcessing(@ModelAttribute("jobApplication") JobApplication jobApplication,
+			BindingResult result, @RequestParam("resume") MultipartFile resume, HttpServletRequest request,
+			ModelMap model) throws Exception {
+		
 		HttpSession session = request.getSession();
-		String username = (String) session.getAttribute("username");
-		
-		Applicant applicant = applicantDao.findByUsername(username);
-		System.out.println("Applicant"+applicant.getFirstName());
-		jobApplication.setAppliedBy(applicant);
-		
-		int id = (Integer) session.getAttribute("jobid");
-		//System.out.println("jobid"+id);
-		Job job = jobDao.findById(id);
-		session.removeAttribute("jobid");
-		
-		File file;
-        String check = File.separator; //Checking if system is linux based or windows based by checking seprator used.
-        String path = null;
-        if(check.equalsIgnoreCase("\\")) {
-            
-            path = servletContext.getRealPath("").replace("build\\",""); 
+        if(session.getAttribute("username")==null){
+            return "redirect:/signin.htm";
         }
-     
-        if(check.equalsIgnoreCase("/")) {
-            
-            path = servletContext.getRealPath("").replace("build/","");
-            
-            path += "/resources/images/"; //Adding trailing slash for Mac systems.
+		try {
+			String username = (String) session.getAttribute("username");
 
-         }
-             path+="\\resources\\images\\";
-         if(jobApplication.getResume() != null){
-        	 String fileNameWithExt = System.currentTimeMillis() + resume.getOriginalFilename();
+			Applicant applicant = applicantDao.findByUsername(username);
+			System.out.println("Applicant" + applicant.getFirstName());
+			jobApplication.setAppliedBy(applicant);
 
-             file = new File(path+fileNameWithExt);
-             
-             String context = servletContext.getContextPath();
-             System.out.println(file);
-             System.out.println(path+"path");
-             System.out.println(resume+"photofile");
-             resume.transferTo(file);
-             
-             String photoName= context + "/resources/images/" +fileNameWithExt; 
-             
-             jobApplication.setFileName(photoName);
-//                  File file1 = File.createTempFile(fileNameWithoutExt, ".jpg", new File("D:\\sem2\\WebTools\\Project"));
-//                  advertApt.getPhoto().transferTo(file1);
-         }
-		
-//		if (!resume.isEmpty()) {
-//            try {
-//                String uploadsDir = "/uploads/";
-//                String realPathtoUploads =  servletContext.getRealPath(uploadsDir);
-//                System.out.println(realPathtoUploads);
-//                if(! new File(realPathtoUploads).exists())
-//                {
-//                    new File(realPathtoUploads).mkdir();
-//                }
-//
-//                String orgName = resume.getOriginalFilename();
-//                String filePath = realPathtoUploads + orgName;
-//                File dest = new File(filePath);
-//                resume.transferTo(dest);
-//		
-//                jobApplication.setFileName(filePath);
-            
-		jobApplication.setJob(job);
-		
-		jobApplication.setStatus("Applied");
-		applicationDao.save(jobApplication);
-		return "appliedSuccessfully";
-            }
-        /*catch(Exception e){
-        	System.out.println("Couldnt save application");
-        }*/
-	
-	
+			int id = (Integer) session.getAttribute("jobid");
+			Job job = jobDao.findById(id);
+			session.removeAttribute("jobid");
+
+			File file;
+			String check = File.separator; // For windows and Linux.
+			String path = null;
+			if (check.equalsIgnoreCase("\\")) {
+
+				path = servletContext.getRealPath("").replace("build\\", "");
+			}
+
+			if (check.equalsIgnoreCase("/")) {
+
+				path = servletContext.getRealPath("").replace("build/", "");
+
+				path += "/resources/images/"; // For MAC.
+
+			}
+			path += "\\resources\\images\\";
+			if (jobApplication.getResume() != null) {
+				String fileNameWithExt = System.currentTimeMillis() + resume.getOriginalFilename();
+
+				file = new File(path + fileNameWithExt);
+
+				String context = servletContext.getContextPath();
+
+				resume.transferTo(file);
+
+				String photoName = context + "/resources/images/" + fileNameWithExt;
+
+				jobApplication.setFileName(photoName);
+			}
+
+			// if (!resume.isEmpty()) {
+			// try {
+			// String uploadsDir = "/uploads/";
+			// String realPathtoUploads =
+			// servletContext.getRealPath(uploadsDir);
+			// System.out.println(realPathtoUploads);
+			// if(! new File(realPathtoUploads).exists())
+			// {
+			// new File(realPathtoUploads).mkdir();
+			// }
+			//
+			// String orgName = resume.getOriginalFilename();
+			// String filePath = realPathtoUploads + orgName;
+			// File dest = new File(filePath);
+			// resume.transferTo(dest);
+			//
+			// jobApplication.setFileName(filePath);
+
+			jobApplication.setJob(job);
+
+			jobApplication.setStatus("Applied");
+			applicationDao.save(jobApplication);
+			return "appliedSuccessfully";
+		} catch (Exception e) {
+			System.out.println("Couldnt save application");
+		}
+		return "errors";
+	}
 
 	@RequestMapping("/search.htm")
 	public String searchPost(@ModelAttribute("job") Job job, BindingResult result, HttpServletRequest request,
 			Model model) throws AdException {
+		
+		HttpSession session = request.getSession();
+        if(session.getAttribute("username")==null){
+            return "redirect:/signin.htm";
+        }
+		
 		String keyword = request.getParameter("keyword");
 		int categoryId = Integer.parseInt(request.getParameter("catId"));
 
@@ -276,6 +308,11 @@ public class JobController {
 	@RequestMapping(value = "/details.htm", method = RequestMethod.GET)
 	protected String moreDetails(@ModelAttribute("jobApplication") JobApplication jobApplication, BindingResult result,
 			HttpServletRequest request, Model model) throws AdException {
+		
+		HttpSession session = request.getSession();
+        if(session.getAttribute("username")==null){
+            return "redirect:/signin.htm";
+        }
 		int id = Integer.parseInt(request.getParameter("id"));
 		JobApplication ja = applicationDao.findByApplicationId(id);
 		model.addAttribute("application", ja);
@@ -285,6 +322,11 @@ public class JobController {
 	@RequestMapping(value = "/result.htm", method = RequestMethod.GET)
 	protected String applicationResult(@ModelAttribute("jobApplication") JobApplication jobApplication,
 			BindingResult result, HttpServletRequest request, Model model) throws AdException {
+		
+		HttpSession session = request.getSession();
+        if(session.getAttribute("username")==null){
+            return "redirect:/signin.htm";
+        }
 		String res = request.getParameter("val");
 		int id = Integer.parseInt(request.getParameter("app"));
 
@@ -303,7 +345,11 @@ public class JobController {
 	@RequestMapping(value = "/viewAppliedJobs.htm", method = RequestMethod.GET)
 	protected String appliedJobs(@ModelAttribute("jobApplication") JobApplication jobApplication, BindingResult result,
 			HttpServletRequest request, @ModelAttribute("model") ModelMap model) throws AdException {
+		
 		HttpSession session = request.getSession();
+        if(session.getAttribute("username")==null){
+            return "redirect:/signin.htm";
+        }
 		String username = (String) session.getAttribute("username");
 
 		Person person = personDao.findByUsername(username);

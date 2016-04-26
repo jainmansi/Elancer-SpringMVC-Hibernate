@@ -62,7 +62,7 @@
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
-					<li><a href="index.html">Home</a></li>
+					<li><a href="myhome.htm">Home</a></li>
 					<li><a href="about.html">About</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">More Pages <b class="caret"></b></a>
@@ -72,7 +72,7 @@
 						</ul>
 					</li>
 					<li><a href="contact.html">Contact</a></li>
-					<li class="active"><a class="btn" href="signin.htm">SIGN IN / SIGN UP</a></li>
+					<li class="active"><a class="btn" href="logout.htm">LOGOUT</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -85,7 +85,7 @@
 	<div class="container">
 
 		<ol class="breadcrumb">
-			<li><a href="index.html">Home</a></li>
+			<li><a href="myhome.htm">Home</a></li>
 			<li class="active">User access</li>
 		</ol>
 

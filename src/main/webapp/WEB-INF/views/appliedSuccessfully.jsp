@@ -73,7 +73,7 @@
 			<!-- Article main content -->
 			<article class="col-xs-12 maincontent">
 				<header class="page-header">
-					<h1 class="page-title">Registration</h1>
+					<h1 class="page-title">Success</h1>
 				</header>
 				
 				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
@@ -81,7 +81,7 @@
 						<div class="panel-body">
 							<img src='resources/images/tick.png' /> 
 								&nbsp; 
-							<span>You have succesfully applied to this job!</span>
+							<span>You have successfully applied to this job!</span>
 							<p><a href=".htm">Click here</a> to go to home page.</p>
 						</div>
 					</div>

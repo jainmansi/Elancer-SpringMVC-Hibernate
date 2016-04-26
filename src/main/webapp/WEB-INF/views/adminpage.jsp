@@ -36,7 +36,7 @@
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
-					<li><a href="index.html">Home</a></li>
+					<li><a href="myhome.htm">Home</a></li>
 					<li><a href="about.html">About</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">More Pages <b class="caret"></b></a>
@@ -59,7 +59,7 @@
 	<div class="container">
 		
 		<ol class="breadcrumb">
-			<li><a href="index.html">Home</a></li>
+			<li><a href="myhome.htm">Home</a></li>
 			<li class="active">Left Sidebar</li>
 		</ol>
 
@@ -70,21 +70,13 @@
 
 				<div class="row widget">
 					<div class="col-xs-12">
-						<h4><a href="newCategory.htm">Add new category</a></h4>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facere, ratione delectus reiciendis nulla nisi pariatur molestias animi eos repellat? Vel.</p>
-					</div>
-				</div>
-				<div class="row widget">
-					<div class="col-xs-12">
-						<h4>Lorem ipsum dolor sit</h4>
+						<h3><a href="newCategory.htm">Add new category</a></h3>
 						<p><img src="resources/images/1.jpg" alt=""></p>
 					</div>
 				</div>
 				<div class="row widget">
 					<div class="col-xs-12">
-						<h4>Lorem ipsum dolor sit</h4>
 						<p><img src="resources/images/2.jpg" alt=""></p>
-						<p>Qui, debitis, ad, neque reprehenderit laborum soluta dolor voluptate eligendi enim consequuntur eveniet recusandae rerum? Atque eos corporis provident tenetur.</p>
 					</div>
 				</div>
 

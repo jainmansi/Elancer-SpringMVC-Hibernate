@@ -61,7 +61,7 @@
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
-					<li><a href="index.html">Home</a></li>
+					<li><a href="myhome.htm">Home</a></li>
 					<li><a href="about.html">About</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">More Pages <b class="caret"></b></a>
@@ -84,7 +84,7 @@
 	<div class="container">
 		
 		<ol class="breadcrumb">
-			<li><a href="index.html">Home</a></li>
+			<li><a href="myhome.htm">Home</a></li>
 			<li class="active">Left Sidebar</li>
 		</ol>
 

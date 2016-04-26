@@ -31,6 +31,27 @@
 </head>
 
 <body>
+
+ <script>  
+   function doAjaxPost() {  
+      
+      
+    var name = $('#username').val(); 
+  
+    $.ajax({  
+     type : "Get",   
+     url : "checkUsername.htm",   
+     data : "name=" +username,  
+     success : function(response) {  
+      alert(response);   
+     },  
+     error : function(e) {  
+      alert('Error: ' + e);   
+     }  
+    });  
+   }  
+  </script>
+  
 	<!-- Fixed navbar -->
 	<div class="navbar navbar-inverse navbar-fixed-top headroom" >
 		<div class="container">
@@ -41,7 +62,6 @@
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
-					<li><a href="index.html">Home</a></li>
 					<li><a href="about.html">About</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">More Pages <b class="caret"></b></a>
@@ -64,7 +84,6 @@
 	<div class="container">
 
 		<ol class="breadcrumb">
-			<li><a href="index.html">Home</a></li>
 			<li class="active">Registration</li>
 		</ol>
 
@@ -98,7 +117,7 @@
 								
 								<div class="top-margin">
 									<label>Username<span class="text-danger">*</span></label>
-									<form:input path="username" pattern="[a-zA-Z0-9]{3,15}" required = "true" class="form-control"/>
+									<form:input path="username" id="username" pattern="[a-zA-Z0-9]{3,15}" required = "true" class="form-control"/>
 									<font color="red"><form:errors path="username"/></font>
 								</div>
 								<div class="top-margin">

@@ -13,7 +13,7 @@
 	
 	<title>Elancrr - where work is get done!</title>
 
-	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
+	<link rel="shortcut icon" href="resources/images/gt_favicon.png">
 	
 	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
 	<link rel="stylesheet" href="resources/css/bootstrap.min.css">
@@ -51,7 +51,7 @@
 						</ul>
 					</li>
 					<li><a href="contact.html">Contact</a></li>
-					<li class="active"><a class="btn" href="signin.jsp">SIGN IN / SIGN UP</a></li>
+					<li class="active"><a class="btn" href="signin.htm">SIGN IN / SIGN UP</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -79,7 +79,8 @@
 				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<p> Your account has been successfully created. <a href="signin.htm">Click here</a> to login! </p>
+							<p> Username already exist. Please try with another username! </p>
+							<br/>
 						</div>
 					</div>
 

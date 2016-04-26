@@ -2,6 +2,7 @@ package com.me.controller;
 
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import com.me.pojo.Job;
@@ -17,8 +18,10 @@ public class JobValidator implements Validator{
 
 	@Override
 	public void validate(Object target, Errors errors) {
-		// TODO Auto-generated method stub
-		
+		Job job = (Job) target;
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "jobTitle", "validate.jobTitle", "Job title cannot be empty!");		
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "jobDescription", "validate.jobDescription", "Description cannot be empty!");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "pay", "validate.pay", "Salary cannot be empty!");
 	}
 
 }

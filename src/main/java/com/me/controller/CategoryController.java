@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -40,11 +41,23 @@ public class CategoryController {
 
 	@RequestMapping(value="/newCategory.htm", method = RequestMethod.GET)
 	protected String NewCategoryForm(@ModelAttribute("jobCategory") JobCategory jobCategory, BindingResult result, HttpServletRequest request, ModelMap model){
-		return "addCategoryForm";
+		
+		HttpSession session = request.getSession();
+        if(session.getAttribute("username")==null){
+            return "redirect:/signin.htm";
+        }		
+        
+			return "addCategoryForm";
 	}
 	
 	@RequestMapping(value="/viewCategory.htm", method = RequestMethod.GET)
 	protected String viewCategory(@ModelAttribute("jobCategory") JobCategory jobCategory, BindingResult result, HttpServletRequest request, Model model) throws Exception{
+		
+		HttpSession session = request.getSession();
+        if(session.getAttribute("username")==null){
+            return "redirect:/signin.htm";
+        }	
+		
 		ArrayList<JobCategory> categoryList = new ArrayList<JobCategory>();
 		categoryList = categoryDao.findAll();
 		
@@ -56,6 +69,11 @@ public class CategoryController {
 	
 	@RequestMapping(value="/addCategory.htm", method=RequestMethod.POST)
 	protected String addNewCategory(@ModelAttribute("jobCategory") JobCategory jobCategory, BindingResult result, HttpServletRequest request, ModelMap model){
+		
+		HttpSession session = request.getSession();
+        if(session.getAttribute("username")==null){
+            return "redirect:/signin.htm";
+        }	
 		
 		validator.validate(jobCategory, result);
 		if (result.hasErrors()) {

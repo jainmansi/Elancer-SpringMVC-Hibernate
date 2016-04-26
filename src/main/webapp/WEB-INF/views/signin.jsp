@@ -79,7 +79,6 @@
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<h3 class="thin text-center">Sign in to your account</h3>
-							<p class="text-center text-muted">Not a member? <a href="signup.htm">Register</a> here. </p>
 							<hr>
 							
 							<form:form action="home.htm" commandName="person" modelAttribute="person" method="post">

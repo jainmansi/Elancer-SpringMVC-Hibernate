@@ -13,7 +13,7 @@
 	
 	<title>Elancrr - where work is get done!</title>
 
-	<link rel="shortcut icon" href="assets/images/gt_favicon.png">
+	<link rel="shortcut icon" href="resources/images/gt_favicon.png">
 	
 	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
 	<link rel="stylesheet" href="resources/css/bootstrap.min.css">
