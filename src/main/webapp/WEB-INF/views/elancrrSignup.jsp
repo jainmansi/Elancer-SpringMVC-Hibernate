@@ -86,35 +86,38 @@
 							<form:form action = "applicantsignup.htm" commandName="person" modelAttribute="person" method="post" >
 								<div class="top-margin">
 									<label>First Name<span class="text-danger">*</span></label>
-									<form:input path="firstName" class="form-control"/>
-									<form:errors path="firstName"/>
+									<form:input path="firstName" pattern="[a-zA-Z]*" title="Enter a valid first name" required = "true" class="form-control"/>
+									<font color="red"><form:errors path="firstName"/></font>
 								</div>
+								
 								<div class="top-margin">
 									<label>Last Name<span class="text-danger">*</span></label>
-									<form:input path="lastName" class="form-control"/>
-									<form:errors path="lastName"/>
+									<form:input path="lastName" pattern="[a-zA-Z]*" title="Enter a valid last name" required = "true" class="form-control"/>
+									<font color="red"><form:errors path="lastName"/></font>
 								</div>
+								
 								<div class="top-margin">
 									<label>Username<span class="text-danger">*</span></label>
-									<form:input path="username" class="form-control"/>
-									<form:errors path="username"/>
+									<form:input path="username" pattern="[a-zA-Z0-9]{3,15}" required = "true" class="form-control"/>
+									<font color="red"><form:errors path="username"/></font>
 								</div>
 								<div class="top-margin">
 									<label>Email Address <span class="text-danger">*</span></label>
-									<form:input type="email" path="email" class="form-control"/>
-									<form:errors path="email"/>
+									<form:input type="email" path="email" required="true" class="form-control"/>
+									<font color="red"><form:errors path="email"/></font>
 								</div>
 
 								<div class="row top-margin">
 									<div class="col-sm-6">
 										<label>Password <span class="text-danger">*</span></label>
-										<form:input path="password" type="password" class="form-control"/>
-										<form:errors path="password"/>
+										<form:input path="password" pattern="[a-zA-Z0-9]{3,15}" required = "true" title="Minimum length of password should be 6 characters." type="password" class="form-control"/>
+										<font color="red"><form:errors path="password"/></font>
 									</div>
+									
 									<div class="col-sm-6">
 										<label>Confirm Password <span class="text-danger">*</span></label>
-										<input type="password" name="confirmPassword" class="form-control"/>
-										<form:errors path="confirmPassword"/>
+										<input type="password" pattern="[a-zA-Z0-9]{3,15}" required = "true" title="Minimum length of password should be 6 characters." name="confirmPassword" class="form-control"/>
+										<font color="red"><form:errors path="confirmPassword"/></font>
 									</div>
 								</div>
 								

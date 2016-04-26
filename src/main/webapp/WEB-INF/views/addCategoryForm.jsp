@@ -105,12 +105,12 @@ return false;
 								<div class="top-margin">
 									<label>Category Name:<span class="text-danger">*</span></label>
 									<form:input path="categoryName" class="form-control"/>
-									<form:errors path="categoryName"/>
+									<font color="red"><form:errors path="categoryName"/></font>
 								</div>
 								<div class="top-margin">
 									<label>Category Description:<span class="text-danger">*</span></label>
 									<form:input path="description" class="form-control"/>
-									<form:errors path="description"/>
+									<font color="red"><form:errors path="description"/></font>
 								</div>
 
 								<hr>

@@ -90,8 +90,11 @@
 				</h3>	
 				</div>
 				<div>
+				<object width="70%" height="800" data="${application.fileName}">
+					<a href="${application.fileName}">Resume</a>
+				</object>
 					
-						<a href="${application.photoName}">Resume</a>
+						
 				</div>
 				
 

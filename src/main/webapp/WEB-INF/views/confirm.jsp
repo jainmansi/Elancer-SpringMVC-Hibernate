@@ -79,7 +79,7 @@
 				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<p> Please verify your email to proceed further! </p>
+							<p> Your account has been successfully created. <a href="signin.htm">Click here</a> to login! </p>
 						</div>
 					</div>
 

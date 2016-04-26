@@ -5,6 +5,7 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean id="personValidator" class="com.me.controller.PersonValidator"></bean>
+	<bean id="categoryValidator" class="com.me.controller.CategoryValidator"></bean>
 	<bean id="personDao" class="com.me.dao.PersonDAOImpl"></bean>
 	<bean id="clientDao" class="com.me.dao.ClientDAOImpl"></bean>
 	<bean id="applicantDao" class="com.me.dao.ApplicantDAOImpl"></bean>

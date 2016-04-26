@@ -107,6 +107,10 @@ public class JobController {
 			long id = person.getPersonID();
 			Client client = (Client) clientDao.findById(id);
 			job.setPostedBy(client);
+			
+			System.out.println("JOB "+job.getPostedBy().getFirstName());
+			System.out.println(id);
+			System.out.println("IDDDDDD"+job.getPostedBy().getPersonID());
 
 			int catid = Integer.parseInt(request.getParameter("catId"));
 			JobCategory selectedCategory = new JobCategory();
@@ -195,69 +199,67 @@ public class JobController {
 		Job job = jobDao.findById(id);
 		session.removeAttribute("jobid");
 		
-//		File file;
-//        String check = File.separator; //Checking if system is linux based or windows based by checking seprator used.
-//        String path = null;
-//        if(check.equalsIgnoreCase("\\")) {
-//            
-//            path = servletContext.getRealPath("").replace("build\\",""); 
-//        }
-//     
-//        if(check.equalsIgnoreCase("/")) {
-//            
-//            path = servletContext.getRealPath("").replace("build/","");
-//            
-//            path += "/resources/images/"; //Adding trailing slash for Mac systems.
-//
-//         }
-//             path+="resources\\images\\";
-//         if(jobApplication.getResume() != null){
-//        	 String fileNameWithExt = System.currentTimeMillis() + resume.getOriginalFilename();
-//
-//             file = new File(path+fileNameWithExt);
-//             
-//             String context = servletContext.getContextPath();
-//             System.out.println(file);
-//             System.out.println(path+"path");
-//             System.out.println(resume+"photofile");
-//             resume.transferTo(file);
-//             
-//             String photoName= context + "/resources/images/" +fileNameWithExt; 
-//             
-//             jobApplication.setPhotoName(photoName);
+		File file;
+        String check = File.separator; //Checking if system is linux based or windows based by checking seprator used.
+        String path = null;
+        if(check.equalsIgnoreCase("\\")) {
+            
+            path = servletContext.getRealPath("").replace("build\\",""); 
+        }
+     
+        if(check.equalsIgnoreCase("/")) {
+            
+            path = servletContext.getRealPath("").replace("build/","");
+            
+            path += "/resources/images/"; //Adding trailing slash for Mac systems.
+
+         }
+             path+="\\resources\\images\\";
+         if(jobApplication.getResume() != null){
+        	 String fileNameWithExt = System.currentTimeMillis() + resume.getOriginalFilename();
+
+             file = new File(path+fileNameWithExt);
+             
+             String context = servletContext.getContextPath();
+             System.out.println(file);
+             System.out.println(path+"path");
+             System.out.println(resume+"photofile");
+             resume.transferTo(file);
+             
+             String photoName= context + "/resources/images/" +fileNameWithExt; 
+             
+             jobApplication.setFileName(photoName);
 //                  File file1 = File.createTempFile(fileNameWithoutExt, ".jpg", new File("D:\\sem2\\WebTools\\Project"));
 //                  advertApt.getPhoto().transferTo(file1);
-  //       }
+         }
 		
-		if (!resume.isEmpty()) {
-            try {
-                String uploadsDir = "/uploads/";
-                String realPathtoUploads =  servletContext.getRealPath(uploadsDir);
-                if(! new File(realPathtoUploads).exists())
-                {
-                    new File(realPathtoUploads).mkdir();
-                }
-
-                String orgName = resume.getOriginalFilename();
-                String filePath = realPathtoUploads + orgName;
-                File dest = new File(filePath);
-                resume.transferTo(dest);
-		
-                jobApplication.setFileName(filePath);
+//		if (!resume.isEmpty()) {
+//            try {
+//                String uploadsDir = "/uploads/";
+//                String realPathtoUploads =  servletContext.getRealPath(uploadsDir);
+//                System.out.println(realPathtoUploads);
+//                if(! new File(realPathtoUploads).exists())
+//                {
+//                    new File(realPathtoUploads).mkdir();
+//                }
+//
+//                String orgName = resume.getOriginalFilename();
+//                String filePath = realPathtoUploads + orgName;
+//                File dest = new File(filePath);
+//                resume.transferTo(dest);
+//		
+//                jobApplication.setFileName(filePath);
             
 		jobApplication.setJob(job);
 		
 		jobApplication.setStatus("Applied");
 		applicationDao.save(jobApplication);
-            }
-        catch(Exception e){
-        	System.out.println("Couldnt save application");
-        }
-		
-		
-            }
 		return "appliedSuccessfully";
-		}
+            }
+        /*catch(Exception e){
+        	System.out.println("Couldnt save application");
+        }*/
+	
 	
 
 	@RequestMapping("/search.htm")

@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +24,15 @@ import com.me.pojo.JobCategory;
 
 @Controller
 public class CategoryController {
+	
+	@Autowired
+	@Qualifier("categoryValidator")
+	CategoryValidator validator;
+
+	@InitBinder
+	private void initBinder(WebDataBinder binder){
+		binder.setValidator(validator);
+	}
 	
 	@Autowired
 	@Qualifier("categoryDao")
@@ -45,6 +56,12 @@ public class CategoryController {
 	
 	@RequestMapping(value="/addCategory.htm", method=RequestMethod.POST)
 	protected String addNewCategory(@ModelAttribute("jobCategory") JobCategory jobCategory, BindingResult result, HttpServletRequest request, ModelMap model){
+		
+		validator.validate(jobCategory, result);
+		if (result.hasErrors()) {
+			return "addCategoryForm";
+		}
+		
 		try {
 			System.out.print("test");
 			categoryDao.save(jobCategory);		

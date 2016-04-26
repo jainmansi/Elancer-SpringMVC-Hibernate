@@ -114,6 +114,7 @@
 										<form:input path="password" pattern="[a-zA-Z0-9]{3,15}" required = "true" title="Minimum length of password should be 6 characters." type="password" class="form-control"/>
 										<font color="red"><form:errors path="password"/></font>
 									</div>
+									
 									<div class="col-sm-6">
 										<label>Confirm Password <span class="text-danger">*</span></label>
 										<input type="password" pattern="[a-zA-Z0-9]{3,15}" required = "true" title="Minimum length of password should be 6 characters." name="confirmPassword" class="form-control"/>

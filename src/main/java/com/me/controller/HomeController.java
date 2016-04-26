@@ -75,11 +75,9 @@ public class HomeController {
 	
 	@RequestMapping(value="/clientsignup.htm", method=RequestMethod.POST)
 	protected String doSubmitAction(@ModelAttribute("person")Person person, BindingResult result, HttpServletRequest request, ModelMap model) throws Exception{
-		System.out.println("111");
+		
 		validator.validate(person, result);
-		System.out.println("222");
 		if (result.hasErrors()) {
-			System.out.println("333");
 			return "clientSignup";
 		}
 		
@@ -105,7 +103,16 @@ public class HomeController {
 //			personDao.save(person);
 			
 			System.out.println("Saved client and person");
+			
+			ConfirmationEmail confEmail = new ConfirmationEmail();
+			String body = "Done";
+			confEmail.setBody(body);
+			confEmail.setRecipient(person.getEmail());
+			confEmail.sendEmailToCLient();
+			
+			System.out.println("Saved applicant and person");
 			return "confirm";
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -115,9 +122,10 @@ public class HomeController {
 	
 	@RequestMapping(value="/applicantsignup.htm", method=RequestMethod.POST)
 	protected String doApplicantSubmitAction(@ModelAttribute("person")Person person, BindingResult result, HttpServletRequest request, ModelMap model) throws Exception{
-		//validator.validate(user, result);
+		
+		validator.validate(person, result);
 		if (result.hasErrors()) {
-			return null;
+			return "elancrrSignup";
 		}
 		
 		try {
