@@ -56,23 +56,22 @@
 		method="post">
 		<div class="top-margin">
 			<label>Title:<span class="text-danger">*</span></label>
-			<form:input path="jobTitle" class="form-control" />
+			<form:input path="jobTitle" pattern="^[a-zA-Z0-9_]+( [a-zA-Z0-9_]+)*$" title="Enter a valid title" required="true" class="form-control" />
 			<form:errors path="jobTitle" />
 		</div>
 		<div class="top-margin">
 			<label>Description:<span class="text-danger">*</span></label>
-			<form:textarea path="jobDescription" class="form-control" />
+			<form:textarea path="jobDescription" pattern="^[a-zA-Z0-9_]+( [a-zA-Z0-9_]+)*$" title="Enter valid input"  required="true"  class="form-control" />
 			<form:errors path="jobDescription" />
 		</div>
 		<div class="top-margin">
 			<label>Salary:<span class="text-danger">*</span></label>
-			<form:input path="pay" class="form-control" />
+			<form:input path="pay" pattern="[0-9]*" title="Salary cannot be null"  required="true"  class="form-control" />
 			<form:errors path="pay" />
 		</div>
 		<div class="top-margin">
-			<label>Category:<span class="text-danger">*</span></label> <select
+			<label>Select A Category:<span class="text-danger">*</span></label> <select
 				name="catId" class="form-control">
-				<option value="0" label="Select" />
 				<c:forEach var="category" items="${list}" varStatus="status">
 					<option value="${category.categoryId}">${category.categoryName}</option>
 				</c:forEach>

@@ -142,6 +142,14 @@ public class HomeController {
 		if (result.hasErrors()) {
 			return "elancrrSignup";
 		}
+		
+		String testName = request.getParameter("username");
+		
+		boolean unique = personDao.isUnique(testName);
+		
+		if(!unique){
+			return "verifyAccount";
+		}
 
 		try {
 			System.out.print("test");
@@ -174,7 +182,8 @@ public class HomeController {
 			}
 
 			ConfirmationEmail confEmail = new ConfirmationEmail();
-			String body = "Done";
+			String body = "Your account has bee successfully created. "
+					+ "Login to our portal to access our services.";
 			confEmail.setBody(body);
 			confEmail.setRecipient(person.getEmail());
 			confEmail.sendEmailToCLient();

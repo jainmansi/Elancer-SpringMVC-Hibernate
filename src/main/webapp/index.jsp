@@ -28,15 +28,6 @@
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right">
 					<li class="active"><a href="#">Home</a></li>
-					<li><a href="about.html">About</a></li>
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">More Pages <b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li><a href="sidebar-left.html">Left Sidebar</a></li>
-							<li class="active"><a href="sidebar-right.html">Right Sidebar</a></li>
-						</ul>
-					</li>
-					<li><a href="contact.html">Contact</a></li>
 					<li><a class="btn" href="signin.htm">SIGN IN / SIGN UP</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
@@ -95,10 +86,10 @@
 					<div class="col-md-3 widget">
 						<h3 class="widget-title">Contact</h3>
 						<div class="widget-body">
-							<p>+234 23 9873237<br>
-								<a href="mailto:#">some.email@somewhere.com</a><br>
+							<p>+857 36 MANSI<br>
+								<a href="mailto:#">elancrr@gmail.com</a><br>
 								<br>
-								234 Hidden Pond Road, Ashland City, TN 37015
+								Northeastern University.
 							</p>	
 						</div>
 					</div>
@@ -111,10 +102,9 @@
 							<h3 class="widget-title">Follow me</h3>
 							<div class="widget-body">
 							<p class="follow-me-icons">
-								<a href=""><i class="fa fa-twitter fa-2"></i></a>
-								<a href=""><i class="fa fa-dribbble fa-2"></i></a>
-								<a href=""><i class="fa fa-github fa-2"></i></a>
-								<a href=""><i class="fa fa-facebook fa-2"></i></a>
+								<a href="https://twitter.com/MitigatedMyths"><i class="fa fa-twitter fa-2"></i></a>
+								<a href="https://github.com/mansijain01"><i class="fa fa-github fa-2"></i></a>
+								<a href="http://www.facebook.com/"><i class="fa fa-facebook fa-2"></i></a>
 							</p>	
 						</div></div>
 					</div>

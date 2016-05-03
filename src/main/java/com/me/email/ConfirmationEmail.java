@@ -13,8 +13,8 @@ import javax.mail.internet.MimeMessage;
 
 public class ConfirmationEmail {
 
-	private final String user = "testjavamail02@gmail.com";
-	private final String password = "testmail";
+	private final String user = "elancrr@gmail.com";
+	private final String password = "finalproject";
 	private String recipient;
 	private String body;
 
